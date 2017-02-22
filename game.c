@@ -245,7 +245,7 @@ int move(int *board, int pNum, int w, int h, int pCol) {
 void printBoard(int *board, int w, int h) {
     for (int i = h - 1; i >= 0; i--) {
         printf("|");
-        for (int j = 0; j <= w; j++) {
+        for (int j = 0; j < w; j++) {
             printf("| %d |", board[i * w + j]);
         }
         printf("|\n");
