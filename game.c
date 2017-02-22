@@ -8,7 +8,8 @@
 /*                                                                  */
 /********************************************************************/
 
-
+#include <stdio.h>
+#include <stdlib.h>
 #include "game.h"
 
 /********************************************************************/
@@ -18,14 +19,14 @@
 /********************************************************************/
 int isComplete(int *board, int pNum, int index, int w, int h,
                   int size, int toWin) {
-    // isComplete false by default
+    // isComplete 0 by default
     int isComplete = 0;
 
     // check for win
     if (checkRow(board, pNum, index, w, h, size) >= toWin ||
             checkCol(board, pNum, index, w, h, size) >= toWin ||
-            checkDiagLTR(board, pNum, index, w, h, size) >= toWin ||
-            checkDiagRTL(board, pNum, index, w, h, size) >= toWin){
+            checkDiagLowLeftUpRight(board, pNum, index, w, h, size) >= toWin ||
+            checkDiagLowRightUpLeft(board, pNum, index, w, h, size) >= toWin){
         // isComplete TRUE
         isComplete = 1;
     }
@@ -38,17 +39,16 @@ int isComplete(int *board, int pNum, int index, int w, int h,
 /*                               */
 /*                                                                  */
 /********************************************************************/
-int nextValid(int *board, int curIndex, int w, int h,
-               int size) {
+int nextValid(int *board, int pNum, int curIndex, int w, int h, int size) {
     // isValid true
     int isValid = 1;
 
     // if curIndex is not current player's, or if the current index
     //    is in a perimeter row/col
-    if (board[curIndex] != playerNum || w % curIndex == 0 ||
+    if (board[curIndex] != pNum || w % curIndex == 0 ||
             w % curIndex == w - 1 || curIndex < w  ||
             curIndex > (size - w)) {
-        // isValid false
+        // isValid 0
         isValid = 0;
     }
 
@@ -60,18 +60,18 @@ int nextValid(int *board, int curIndex, int w, int h,
 /*                               */
 /*                                                                  */
 /********************************************************************/
-int checkRow(int *board, int pNum, int curIndex, int w,
+int checkRow(int *board, int pNum, int index, int w,
              int h, int size) {
     int count = 1;
 
     int curIndex = index;
     // look "left"
     for (; w % curIndex != 0;) {
-        if (board[curIndex] == playerNum) {
+        if (board[curIndex] == pNum) {
             curIndex -= 1;
             count++;
         }
-        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
             break;
         }
     }
@@ -79,11 +79,11 @@ int checkRow(int *board, int pNum, int curIndex, int w,
     // look "right"
     curIndex = index;
     for (; w % curIndex != w - 1;) {
-        if (board[curIndex] == playerNum) {
+        if (board[curIndex] == pNum) {
             curIndex += 1;
             count++;
         }
-        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
             break;
         }
     }
@@ -96,17 +96,18 @@ int checkRow(int *board, int pNum, int curIndex, int w,
 /*                               */
 /*                                                                  */
 /********************************************************************/
-int checkCol(int *board, int pNum, int index, int w,
-             int h, int size) {
+int checkCol(int *board, int pNum, int index, int w, int h,
+             int size) {
     int count = 1;
 
+    int curIndex = index;
     // look "down"
     for (int i = 0; curIndex >= 0; i++) {
-        if (board[curIndex] == playerNum) {
+        if (board[curIndex] == pNum) {
             curIndex = index - (w * i);
             count++;
         }
-        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
             break;
         }
     }
@@ -128,10 +129,10 @@ int checkDiagLowLeftUpRight(int *board, int pNum, int index,
     for (int i = 0; w % curIndex != 0; i++) {
         curIndex = index - (i * (w + 1));
 
-        if (board[curIndex] == playerNum) {
+        if (board[curIndex] == pNum) {
             count++;
         }
-        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
             break;
         }
     }
@@ -141,10 +142,10 @@ int checkDiagLowLeftUpRight(int *board, int pNum, int index,
     for (int i = 0; w % curIndex != w - 1; i++) {
         curIndex = index + (i * (w + 1));
 
-        if (board[curIndex] == playerNum) {
+        if (board[curIndex] == pNum) {
             count++;
         }
-        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
             break;
         }
     }
@@ -166,11 +167,11 @@ int checkDiagLowRightUpLeft(int *board, int pNum, int index,
     for (int i = 0; w % curIndex != 0; i++) {
         curIndex = index - (i * (w - 1));
 
-        if (board[curIndex] == playerNum) {
+        if (board[curIndex] == pNum) {
             count++;
         }
 
-        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
             break;
         }
     }
@@ -180,10 +181,10 @@ int checkDiagLowRightUpLeft(int *board, int pNum, int index,
     for (int i = 0; w % curIndex != w - 1; i++) {
         curIndex = index + (i * (w - 1));
 
-        if (board[curIndex] == playerNum) {
+        if (board[curIndex] == pNum) {
             count++;
         }
-        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
             break;
         }
     }
@@ -194,8 +195,8 @@ int checkDiagLowRightUpLeft(int *board, int pNum, int index,
 /*                                                                  */
 /*                                                                  */
 /********************************************************************/
-int createBoard(int **board, int w, int h){
-    int size = length * width;
+int createBoard(int **board, int w, int h) {
+    int size = w * h;
 
     //allocate board size
     *board = malloc(size * sizeof(int));
@@ -213,36 +214,27 @@ int createBoard(int **board, int w, int h){
 /* column not full, if column full returns -1.                      */
 /*                                                                  */
 /********************************************************************/
-int move(int *board, int size, int height, int width, int pNum, int pCol){
+int move(int *board, int pNum, int w, int h, int pCol) {
     //the first available index in the selected column
-    int playedIndex = playedCol - 1;
+    int pIndex = pCol - 1;
 
     // iterating through each row to find the first available index
     //   in the selected column
     int curIndex;
-    for (int i = 0; i < height; i++) {
-        curIndex = (i * width) + playedIndex;
+    for (int i = 0; i < h; i++) {
+        curIndex = (i * w) + pIndex;
         // index is available
         if(board[curIndex] == 0) {
-            playedIndex = curIndex;
+            pIndex = curIndex;
             break;
         }
         // column full
-        if(i == height - 1){
-            playedIndex = -1;
+        if(i == h - 1){
+            pIndex = -1;
         }
     }
 
-    return playedIndex;
-}
-
-/********************************************************************/
-/*  */
-/*  */
-/*  */
-/********************************************************************/
-int gameComplete(){
-
+    return pIndex;
 }
 
 /********************************************************************/
@@ -250,17 +242,21 @@ int gameComplete(){
 /*  */
 /*  */
 /********************************************************************/
-void printBoard(){
-
-}
-
-/********************************************************************/
-/*  */
-/*  */
-/*  */
-/********************************************************************/
-void printGameState(){
-
+void printBoard(int *board, int w, int h) {
+    for (int i = h - 1; i >= 0; i--) {
+        printf("|");
+        for (int j = 0; j <= w; j++) {
+            printf("| %d |", board[i * w + j]);
+        }
+        printf("|\n");
+    }
+//    if (pNum == 1) {
+//        pNum = 2;
+//    }
+//    else {
+//        pNum = 1;
+//    }
+//    printf("Player %d select a column: ", pNum);
 }
 
 /********************************************************************/
@@ -270,6 +266,7 @@ void printGameState(){
 /********************************************************************/
 int saveGame(int name){
 
+    return name;
 }
 
 /********************************************************************/
@@ -279,4 +276,5 @@ int saveGame(int name){
 /********************************************************************/
 int loadGame(int name){
 
+    return name;
 }

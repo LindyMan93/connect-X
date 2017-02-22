@@ -13,14 +13,23 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-int checkHorizontal();
-int checkVertical();
-int checkDiagonalLeft();
-int checkDiagonalRight();
-int move();
-int gameComplete();
-void printBoard();
-void printGameState();
+
+int isComplete(int *board, int pNum, int index, int w, int h,
+               int size, int toWin);
+int nextValid(int *board, int pNum, int curIndex, int w, int h, int size);
+int checkRow(int *board, int pNum, int index, int w,
+             int h, int size);
+int checkCol(int *board, int pNum, int index, int w, int h,
+             int size);
+int checkDiagLowLeftUpRight(int *board, int pNum, int index,
+                            int w, int h, int size);
+int checkDiagLowRightUpLeft(int *board, int pNum, int index,
+                            int w, int h, int size);
+int createBoard(int **board, int w, int h);
+int move(int *board, int pNum, int w, int h, int pCol);
+void printBoard(int *board, int w, int h);
+int saveGame(int name);
+int loadGame(int name);
+
 
 #endif //CONNECTX_GAME_H

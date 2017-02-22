@@ -3,7 +3,7 @@
 /*    connectx.c                                                     */
 /* Author                                                            */
 /*  Derrik Fleming         */
-/*  CIS343       */                                                   */
+/*  CIS343       */
 /*********************************************************************/
 /* ConnectX.c runs the game loop for the Connect-X game. It prints   */
 /* pre-game welcome message, and game play commences as the game     */
@@ -15,7 +15,8 @@
 
 
 #include <stdio.h>
-#include <argp.h>
+#include <stdlib.h>
+//#include <argp.h>
 
 #include "game.h"
 
@@ -25,14 +26,11 @@ int main() {
     int bLength = 7;
     int bWidth = 7;
 
+    int size = createBoard(&board, bWidth, bLength);
 
-
-
-
-
-    //main game-loop
-    while(getGameComplete() == 0){
-
+    if(size == bLength * bWidth){
+        printBoard(board, bWidth, bLength);
     }
+
     return 0;
 }
