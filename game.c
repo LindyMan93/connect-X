@@ -226,6 +226,7 @@ int move(int *board, int pNum, int w, int h, int pCol) {
         // index is available
         if(board[curIndex] == 0) {
             pIndex = curIndex;
+            board[pIndex] = pNum;
             break;
         }
         // column full
@@ -250,6 +251,7 @@ void printBoard(int *board, int w, int h) {
         }
         printf("|\n");
     }
+    printf("\n\n");
 //    if (pNum == 1) {
 //        pNum = 2;
 //    }
