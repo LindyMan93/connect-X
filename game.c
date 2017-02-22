@@ -16,17 +16,21 @@
 /*                               */
 /*                                                                  */
 /********************************************************************/
-int postMoveCheck(int **board, int pNum, int index, int w, int h,
+int isComplete(int *board, int pNum, int index, int w, int h,
                   int size, int toWin) {
-
+    // isComplete false by default
+    int isComplete = 0;
 
     // check for win
-    if (checkRow() >= toWin || checkCol >= toWin ||
-        checkDiagLTR() >= toWin || checkDiagRTL() >= toWin){
-
+    if (checkRow(board, pNum, index, w, h, size) >= toWin ||
+            checkCol(board, pNum, index, w, h, size) >= toWin ||
+            checkDiagLTR(board, pNum, index, w, h, size) >= toWin ||
+            checkDiagRTL(board, pNum, index, w, h, size) >= toWin){
+        // isComplete TRUE
+        isComplete = 1;
     }
 
-    return ;
+    return isComplete;
 }
 
 /********************************************************************/
@@ -34,16 +38,18 @@ int postMoveCheck(int **board, int pNum, int index, int w, int h,
 /*                               */
 /*                                                                  */
 /********************************************************************/
-bool nextValid(int **board, int curIndex, int w, int h,
-               int size, int toWin) {
-    bool isValid = true;
+int nextValid(int *board, int curIndex, int w, int h,
+               int size) {
+    // isValid true
+    int isValid = 1;
 
     // if curIndex is not current player's, or if the current index
     //    is in a perimeter row/col
-    if ((*board)[curIndex] != playerNum || w % curIndex == 0 ||
-        w % curIndex == w - 1 || curIndex < w  ||
-        curIndex > (size - w)) {
-        isValid = false;
+    if (board[curIndex] != playerNum || w % curIndex == 0 ||
+            w % curIndex == w - 1 || curIndex < w  ||
+            curIndex > (size - w)) {
+        // isValid false
+        isValid = 0;
     }
 
     return isValid;
@@ -54,18 +60,18 @@ bool nextValid(int **board, int curIndex, int w, int h,
 /*                               */
 /*                                                                  */
 /********************************************************************/
-int checkRow(int **board, int playerNum, int index, int w,
+int checkRow(int *board, int pNum, int curIndex, int w,
              int h, int size) {
-    int count = 0;
+    int count = 1;
 
     int curIndex = index;
     // look "left"
     for (; w % curIndex != 0;) {
-        if ((*board)[curIndex] == playerNum) {
+        if (board[curIndex] == playerNum) {
             curIndex -= 1;
             count++;
         }
-        if (nextValid() == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
             break;
         }
     }
@@ -73,11 +79,11 @@ int checkRow(int **board, int playerNum, int index, int w,
     // look "right"
     curIndex = index;
     for (; w % curIndex != w - 1;) {
-        if ((*board)[curIndex] == playerNum) {
+        if (board[curIndex] == playerNum) {
             curIndex += 1;
             count++;
         }
-        if (nextValid() == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
             break;
         }
     }
@@ -90,17 +96,17 @@ int checkRow(int **board, int playerNum, int index, int w,
 /*                               */
 /*                                                                  */
 /********************************************************************/
-int checkCol(int **board, int playerNum, int index, int w,
+int checkCol(int *board, int pNum, int index, int w,
              int h, int size) {
-    int count = 0;
+    int count = 1;
 
     // look "down"
     for (int i = 0; curIndex >= 0; i++) {
-        if ((*board)[curIndex] == playerNum) {
+        if (board[curIndex] == playerNum) {
             curIndex = index - (w * i);
             count++;
         }
-        if (nextValid() == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
             break;
         }
     }
@@ -113,19 +119,19 @@ int checkCol(int **board, int playerNum, int index, int w,
 /*                               */
 /*                                                                  */
 /********************************************************************/
-int checkDiagLowLeftUpRight(int **board, int playerNum, int index,
+int checkDiagLowLeftUpRight(int *board, int pNum, int index,
                             int w, int h, int size) {
-    int count = 0;
+    int count = 1;
 
     // look "low-left"
     int curIndex = index;
     for (int i = 0; w % curIndex != 0; i++) {
         curIndex = index - (i * (w + 1));
 
-        if ((*board)[curIndex] == playerNum) {
+        if (board[curIndex] == playerNum) {
             count++;
         }
-        if (nextValid() == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
             break;
         }
     }
@@ -135,10 +141,10 @@ int checkDiagLowLeftUpRight(int **board, int playerNum, int index,
     for (int i = 0; w % curIndex != w - 1; i++) {
         curIndex = index + (i * (w + 1));
 
-        if ((*board)[curIndex] == playerNum) {
+        if (board[curIndex] == playerNum) {
             count++;
         }
-        if (nextValid() == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
             break;
         }
     }
@@ -151,7 +157,7 @@ int checkDiagLowLeftUpRight(int **board, int playerNum, int index,
 /*                               */
 /*                                                                  */
 /********************************************************************/
-int checkDiagLowRightUpLeft(int **board, int playerNum, int index,
+int checkDiagLowRightUpLeft(int *board, int pNum, int index,
                             int w, int h, int size) {
     int count = 0;
 
@@ -160,11 +166,11 @@ int checkDiagLowRightUpLeft(int **board, int playerNum, int index,
     for (int i = 0; w % curIndex != 0; i++) {
         curIndex = index - (i * (w - 1));
 
-        if ((*board)[curIndex] == playerNum) {
+        if (board[curIndex] == playerNum) {
             count++;
         }
 
-        if (nextValid() == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
             break;
         }
     }
@@ -174,10 +180,10 @@ int checkDiagLowRightUpLeft(int **board, int playerNum, int index,
     for (int i = 0; w % curIndex != w - 1; i++) {
         curIndex = index + (i * (w - 1));
 
-        if ((*board)[curIndex] == playerNum) {
+        if (board[curIndex] == playerNum) {
             count++;
         }
-        if (nextValid() == false) {
+        if (nextValid(board, pNum, curIndex, w, h, size) == false) {
             break;
         }
     }
@@ -207,7 +213,7 @@ int createBoard(int **board, int w, int h){
 /* column not full, if column full returns -1.                      */
 /*                                                                  */
 /********************************************************************/
-int move(int **board, int size, int height, int width, int playedCol){
+int move(int *board, int size, int height, int width, int pNum, int pCol){
     //the first available index in the selected column
     int playedIndex = playedCol - 1;
 
@@ -217,7 +223,7 @@ int move(int **board, int size, int height, int width, int playedCol){
     for (int i = 0; i < height; i++) {
         curIndex = (i * width) + playedIndex;
         // index is available
-        if((*board)[curIndex] == 0) {
+        if(board[curIndex] == 0) {
             playedIndex = curIndex;
             break;
         }
