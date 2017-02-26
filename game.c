@@ -1,8 +1,8 @@
 /********************************************************************/
 /* Game.c                                                           */
 /* Author:                                                          */
-/*  Derrik Fleming         */
-/*  CIS343       */
+/*  Derrik Fleming                                                  */
+/*  CIS343-01 with Prof Ira Woodring                                */
 /********************************************************************/
 /* The following methods aid in the game play of ConnectX.          */
 /*                                                                  */
@@ -13,8 +13,11 @@
 #include "game.h"
 
 /********************************************************************/
-/* This method checks   */
-/*                               */
+/* This method checks if any win conditions have been met. The last */
+/* played index is passed in, if it coincides with a series of      */
+/* indexes that are also associated with the same player whose sum  */
+/* is greater than toWin, isComplete's value is set to 1,           */
+/* indicating the game has been one by pNum.                        */
 /*                                                                  */
 /********************************************************************/
 int isComplete(int *board, int pNum, int index, int w, int h,
@@ -35,55 +38,54 @@ int isComplete(int *board, int pNum, int index, int w, int h,
 }
 
 /********************************************************************/
-/* This method checks   */
-/*                               */
+/* This method checks if the index in board[curIndex] is equal to   */
+/* pNum. If it is not, isValid's value is set to 0, (false).        */
 /*                                                                  */
 /********************************************************************/
-int nextValid(int *board, int pNum, int curIndex, int w, int h, int size) {
+int isValid(int *board, int pNum, int index, int w, int h, int size) {
     // isValid true
     int isValid = 1;
 
     // if curIndex is not current player's, or if the current index
     //    is in a perimeter row/col
-    if (board[curIndex] != pNum || w % curIndex == 0 ||
-            w % curIndex == w - 1 || curIndex < w  ||
-            curIndex > (size - w)) {
-        // isValid 0
+    if (board[index] != pNum) {
         isValid = 0;
     }
-
     return isValid;
 }
 
 /********************************************************************/
-/* This method checks   */
-/*                               */
+/* This method returns the sum of the row series board[index] is a  */
+/* part of.                                                         */
 /*                                                                  */
 /********************************************************************/
 int checkRow(int *board, int pNum, int index, int w,
              int h, int size) {
-    int count = 1;
+    int count = 0;
 
-    int curIndex = index;
     // look "left"
-    for (; w % curIndex != 0;) {
-        if (board[curIndex] == pNum) {
-            curIndex -= 1;
+    for (int i = index; i >= 0 ; i--) {
+        if (board[i] == pNum) {
             count++;
+            printf("Index: %i, Count: %i\n\n", i, count);
+
         }
-        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
+        if (i % w == 0 ||
+                isValid(board, pNum, i, w, h, size) == 0) {
+            printf("Exit on: %i\n\n", i);
             break;
         }
     }
 
     // look "right"
-    curIndex = index;
-    for (; w % curIndex != w - 1;) {
-        if (board[curIndex] == pNum) {
-            curIndex += 1;
+    for (int i = index + 1; i < size ; i++) {
+        if (board[i] == pNum) {
             count++;
+            printf("Index: %i, Count: %i\n\n", i, count);
         }
-        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
+        if (i % w == w - 1 ||
+                isValid(board, pNum, i, w, h, size) == 0) {
+            printf("Exit on: %i\n\n", i);
             break;
         }
     }
@@ -92,22 +94,21 @@ int checkRow(int *board, int pNum, int index, int w,
 }
 
 /********************************************************************/
-/* This method checks   */
-/*                               */
+/* This method returns the sum of the col series board[index] is a  */
+/* part of.                                                         */
 /*                                                                  */
 /********************************************************************/
-int checkCol(int *board, int pNum, int index, int w, int h,
+int checkCol(int *board, int pNum, int index, int w, int h, 
              int size) {
     int count = 1;
-
-    int curIndex = index;
+    
     // look "down"
-    for (int i = 0; curIndex >= 0; i++) {
-        if (board[curIndex] == pNum) {
-            curIndex = index - (w * i);
+    for (int i = index; i >= 0; i -= w) {
+        if (board[i] == pNum) {
             count++;
+            printf("Index: %i, Count: %i\n\n", i, count);
         }
-        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
+        if(isValid(board, pNum, i, w, h, size) == 0) {
             break;
         }
     }
@@ -116,36 +117,37 @@ int checkCol(int *board, int pNum, int index, int w, int h,
 }
 
 /********************************************************************/
-/* This method checks   */
-/*                               */
+/* This method returns the sum of the diagonal series ("lower left  */
+/* to upper right") board[index] is a part of.                      */
 /*                                                                  */
 /********************************************************************/
-int checkDiagLowLeftUpRight(int *board, int pNum, int index,
-                            int w, int h, int size) {
-    int count = 1;
+int checkDiagLowLeftUpRight(int *board, int pNum, int index, int w, 
+                            int h, int size) {
+    int count = 0;
 
     // look "low-left"
-    int curIndex = index;
-    for (int i = 0; w % curIndex != 0; i++) {
-        curIndex = index - (i * (w + 1));
-
-        if (board[curIndex] == pNum) {
+    for (int i = index; i >= 0; i -= w + 1) {
+        if (board[i] == pNum) {
             count++;
+            printf("Index: %i, Count: %i\n\n", i, count);
         }
-        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
+        if (i % w == 0 ||
+                isValid(board, pNum, i, w, h, size) == 0) {
+            printf("Exit on: %i\n\n", i);
             break;
         }
+
     }
 
     // look "up-right"
-    curIndex = index;
-    for (int i = 0; w % curIndex != w - 1; i++) {
-        curIndex = index + (i * (w + 1));
-
-        if (board[curIndex] == pNum) {
+    for (int i = index + w + 1; i < size; i += w + 1) {
+        if (board[i] == pNum) {
             count++;
+            printf("Index: %i, Count: %i\n\n", i, count);
         }
-        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
+        if (i % w == w - 1 ||
+                isValid(board, pNum, i, w, h, size) == 0) {
+            printf("Exit on: %i\n\n", i);
             break;
         }
     }
@@ -154,37 +156,37 @@ int checkDiagLowLeftUpRight(int *board, int pNum, int index,
 }
 
 /********************************************************************/
-/* This method checks   */
-/*                               */
+/* This method returns the sum of the diagonal series ("lower right */
+/* to upper left") board[index] is a part of.                       */
 /*                                                                  */
 /********************************************************************/
-int checkDiagLowRightUpLeft(int *board, int pNum, int index,
-                            int w, int h, int size) {
+int checkDiagLowRightUpLeft(int *board, int pNum, int index, int w, 
+                            int h, int size) {
     int count = 0;
 
     // look "low-right"
-    int curIndex = index;
-    for (int i = 0; w % curIndex != 0; i++) {
-        curIndex = index - (i * (w - 1));
-
-        if (board[curIndex] == pNum) {
+    int i = index;
+    for (int i = index; i >= 0; i -= w - 1) {
+        if (board[i] == pNum) {
             count++;
+            printf("Index: %i, Count: %i\n\n", i, count);
         }
-
-        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
+        if (i % w == w - 1 ||
+                isValid(board, pNum, i, w, h, size) == 0) {
+            printf("Exit on: %i\n\n", i);
             break;
         }
     }
 
     // look "up-left"
-    curIndex = index;
-    for (int i = 0; w % curIndex != w - 1; i++) {
-        curIndex = index + (i * (w - 1));
-
-        if (board[curIndex] == pNum) {
+    for (int i = index + w - 1; i < size; i += w - 1) {
+        if (board[i] == pNum) {
             count++;
+            printf("Index: %i, Count: %i\n\n", i, count);
         }
-        if (nextValid(board, pNum, curIndex, w, h, size) == 0) {
+        else if (i % w == 0 ||
+                 isValid(board, pNum, i, w, h, size) == 0) {
+            printf("Exit on: %i\n\n", i);
             break;
         }
     }
@@ -192,8 +194,9 @@ int checkDiagLowRightUpLeft(int *board, int pNum, int index,
     return count;
 }
 /********************************************************************/
-/*                                                                  */
-/*                                                                  */
+/* This method allocates memory for the specified width and height  */
+/* and initializes the board to all zeroes (unplayed/"empty"        */
+/* value).                                                          */
 /********************************************************************/
 int createBoard(int **board, int w, int h) {
     int size = w * h;
@@ -239,9 +242,8 @@ int move(int *board, int pNum, int w, int h, int pCol) {
 }
 
 /********************************************************************/
-/* Prints a char array of the current board to the screen  */
-/*  */
-/*  */
+/* Prints a char array of the current board to the console.         */
+/*                                                                  */
 /********************************************************************/
 void printBoard(int *board, int w, int h) {
     for (int i = h - 1; i >= 0; i--) {
@@ -252,6 +254,8 @@ void printBoard(int *board, int w, int h) {
         printf("|\n");
     }
     printf("\n\n");
+
+
 //    if (pNum == 1) {
 //        pNum = 2;
 //    }
@@ -259,6 +263,7 @@ void printBoard(int *board, int w, int h) {
 //        pNum = 1;
 //    }
 //    printf("Player %d select a column: ", pNum);
+
 }
 
 /********************************************************************/
