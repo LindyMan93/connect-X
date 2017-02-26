@@ -64,6 +64,9 @@ int checkRow(int *board, int pNum, int index, int w,
     int count = 0;
 
     // look "left"
+    // iterates across row of index in "left" direction
+    // break on perimeter col (index % w == 0) or
+    // when board[index] != pNum
     for (int i = index; i >= 0 ; i--) {
         if (board[i] == pNum) {
             count++;
@@ -78,6 +81,9 @@ int checkRow(int *board, int pNum, int index, int w,
     }
 
     // look "right"
+    // iterates across row of index in "right" direction
+    // break on perimeter col (index % w == w - 1) or
+    // when board[index] != pNum
     for (int i = index + 1; i < size ; i++) {
         if (board[i] == pNum) {
             count++;
@@ -103,6 +109,8 @@ int checkCol(int *board, int pNum, int index, int w, int h,
     int count = 1;
     
     // look "down"
+    // iterates "down" col of index
+    // break when board[index] != pNum
     for (int i = index; i >= 0; i -= w) {
         if (board[i] == pNum) {
             count++;
@@ -125,7 +133,10 @@ int checkDiagLowLeftUpRight(int *board, int pNum, int index, int w,
                             int h, int size) {
     int count = 0;
 
-    // look "low-left"
+    // look "down" and "left"
+    // iterates diagonally "down" and "left" from index
+    // break on perimeter col (index % w == 0) or
+    // when board[index] != pNum
     for (int i = index; i >= 0; i -= w + 1) {
         if (board[i] == pNum) {
             count++;
@@ -136,10 +147,12 @@ int checkDiagLowLeftUpRight(int *board, int pNum, int index, int w,
             printf("Exit on: %i\n\n", i);
             break;
         }
-
     }
 
-    // look "up-right"
+    // look "up" and "right"
+    // iterates diagonally "up" and "right" from index
+    // break on perimeter col (index % w == 0) or
+    // when board[index] != pNum
     for (int i = index + w + 1; i < size; i += w + 1) {
         if (board[i] == pNum) {
             count++;
@@ -164,7 +177,10 @@ int checkDiagLowRightUpLeft(int *board, int pNum, int index, int w,
                             int h, int size) {
     int count = 0;
 
-    // look "low-right"
+    // look "down" and "right"
+    // iterates diagonally "down" and "right" from index
+    // break on perimeter col (index % w == 0) or
+    // when board[index] != pNum
     int i = index;
     for (int i = index; i >= 0; i -= w - 1) {
         if (board[i] == pNum) {
@@ -178,7 +194,10 @@ int checkDiagLowRightUpLeft(int *board, int pNum, int index, int w,
         }
     }
 
-    // look "up-left"
+    // look "up" and "left"
+    // iterates diagonally "up" and "left" from index
+    // break on perimeter col (index % w == 0) or
+    // when board[index] != pNum
     for (int i = index + w - 1; i < size; i += w - 1) {
         if (board[i] == pNum) {
             count++;
