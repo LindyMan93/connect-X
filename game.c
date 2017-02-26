@@ -38,23 +38,6 @@ int isComplete(int *board, int pNum, int index, int w, int h,
 }
 
 /********************************************************************/
-/* This method checks if the index in board[curIndex] is equal to   */
-/* pNum. If it is not, isValid's value is set to 0, (false).        */
-/*                                                                  */
-/********************************************************************/
-int isValid(int *board, int pNum, int index, int w, int h, int size) {
-    // isValid true
-    int isValid = 1;
-
-    // if curIndex is not current player's, or if the current index
-    //    is in a perimeter row/col
-    if (board[index] != pNum) {
-        isValid = 0;
-    }
-    return isValid;
-}
-
-/********************************************************************/
 /* This method returns the sum of the row series board[index] is a  */
 /* part of.                                                         */
 /*                                                                  */
@@ -70,12 +53,10 @@ int checkRow(int *board, int pNum, int index, int w,
     for (int i = index; i >= 0 ; i--) {
         if (board[i] == pNum) {
             count++;
-            printf("Index: %i, Count: %i\n\n", i, count);
-
+            // printf("Index: %i, Count: %i\n\n", i, count);
         }
-        if (i % w == 0 ||
-                isValid(board, pNum, i, w, h, size) == 0) {
-            printf("Exit on: %i\n\n", i);
+        if (i % w == 0 || board[i] != pNum) {
+            // printf("Exit on: %i\n\n", i);
             break;
         }
     }
@@ -87,11 +68,10 @@ int checkRow(int *board, int pNum, int index, int w,
     for (int i = index + 1; i < size ; i++) {
         if (board[i] == pNum) {
             count++;
-            printf("Index: %i, Count: %i\n\n", i, count);
+            // printf("Index: %i, Count: %i\n\n", i, count);
         }
-        if (i % w == w - 1 ||
-                isValid(board, pNum, i, w, h, size) == 0) {
-            printf("Exit on: %i\n\n", i);
+        if (i % w == w - 1 || board[i] != pNum) {
+            // printf("Exit on: %i\n\n", i);
             break;
         }
     }
@@ -114,9 +94,10 @@ int checkCol(int *board, int pNum, int index, int w, int h,
     for (int i = index; i >= 0; i -= w) {
         if (board[i] == pNum) {
             count++;
-            printf("Index: %i, Count: %i\n\n", i, count);
+            // printf("Index: %i, Count: %i\n\n", i, count);
         }
-        if(isValid(board, pNum, i, w, h, size) == 0) {
+        if(board[i] != pNum) {
+            // printf("Exit on: %i\n\n", i);
             break;
         }
     }
@@ -140,11 +121,10 @@ int checkDiagLowLeftUpRight(int *board, int pNum, int index, int w,
     for (int i = index; i >= 0; i -= w + 1) {
         if (board[i] == pNum) {
             count++;
-            printf("Index: %i, Count: %i\n\n", i, count);
+            // printf("Index: %i, Count: %i\n\n", i, count);
         }
-        if (i % w == 0 ||
-                isValid(board, pNum, i, w, h, size) == 0) {
-            printf("Exit on: %i\n\n", i);
+        if (i % w == 0 || board[i] != pNum) {
+            // printf("Exit on: %i\n\n", i);
             break;
         }
     }
@@ -156,11 +136,10 @@ int checkDiagLowLeftUpRight(int *board, int pNum, int index, int w,
     for (int i = index + w + 1; i < size; i += w + 1) {
         if (board[i] == pNum) {
             count++;
-            printf("Index: %i, Count: %i\n\n", i, count);
+            // printf("Index: %i, Count: %i\n\n", i, count);
         }
-        if (i % w == w - 1 ||
-                isValid(board, pNum, i, w, h, size) == 0) {
-            printf("Exit on: %i\n\n", i);
+        if (i % w == w - 1 || board[i] != pNum) {
+            // printf("Exit on: %i\n\n", i);
             break;
         }
     }
@@ -185,11 +164,10 @@ int checkDiagLowRightUpLeft(int *board, int pNum, int index, int w,
     for (int i = index; i >= 0; i -= w - 1) {
         if (board[i] == pNum) {
             count++;
-            printf("Index: %i, Count: %i\n\n", i, count);
+            // printf("Index: %i, Count: %i\n\n", i, count);
         }
-        if (i % w == w - 1 ||
-                isValid(board, pNum, i, w, h, size) == 0) {
-            printf("Exit on: %i\n\n", i);
+        if (i % w == w - 1 || board[i] != pNum) {
+            // printf("Exit on: %i\n\n", i);
             break;
         }
     }
@@ -201,11 +179,10 @@ int checkDiagLowRightUpLeft(int *board, int pNum, int index, int w,
     for (int i = index + w - 1; i < size; i += w - 1) {
         if (board[i] == pNum) {
             count++;
-            printf("Index: %i, Count: %i\n\n", i, count);
+            // printf("Index: %i, Count: %i\n\n", i, count);
         }
-        else if (i % w == 0 ||
-                 isValid(board, pNum, i, w, h, size) == 0) {
-            printf("Exit on: %i\n\n", i);
+        else if (i % w == 0 || board[i] != pNum) {
+            // printf("Exit on: %i\n\n", i);
             break;
         }
     }
