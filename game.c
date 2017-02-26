@@ -28,8 +28,8 @@ int isComplete(int *board, int pNum, int index, int w, int h,
     // check for win
     if (checkRow(board, pNum, index, w, h, size) >= toWin ||
             checkCol(board, pNum, index, w, h, size) >= toWin ||
-            checkDiagLowLeftUpRight(board, pNum, index, w, h, size) >= toWin ||
-            checkDiagLowRightUpLeft(board, pNum, index, w, h, size) >= toWin){
+            checkDiag1(board, pNum, index, w, h, size) >= toWin ||
+            checkDiag2(board, pNum, index, w, h, size) >= toWin){
         // isComplete TRUE
         isComplete = 1;
     }
@@ -110,8 +110,8 @@ int checkCol(int *board, int pNum, int index, int w, int h,
 /* to upper right") board[index] is a part of.                      */
 /*                                                                  */
 /********************************************************************/
-int checkDiagLowLeftUpRight(int *board, int pNum, int index, int w, 
-                            int h, int size) {
+int checkDiag1(int *board, int pNum, int index, int w, int h,
+               int size) {
     int count = 0;
 
     // look "down" and "left"
@@ -152,8 +152,8 @@ int checkDiagLowLeftUpRight(int *board, int pNum, int index, int w,
 /* to upper left") board[index] is a part of.                       */
 /*                                                                  */
 /********************************************************************/
-int checkDiagLowRightUpLeft(int *board, int pNum, int index, int w, 
-                            int h, int size) {
+int checkDiag2(int *board, int pNum, int index, int w, int h,
+               int size) {
     int count = 0;
 
     // look "down" and "right"
@@ -214,23 +214,16 @@ int createBoard(int **board, int w, int h) {
 /*                                                                  */
 /********************************************************************/
 int move(int *board, int pNum, int w, int h, int pCol) {
-    //the first available index in the selected column
-    int pIndex = pCol - 1;
-
     // iterating through each row to find the first available index
     //   in the selected column
-    int curIndex;
-    for (int i = 0; i < h; i++) {
-        curIndex = (i * w) + pIndex;
+    int pIndex = -1;
+
+    for (int i = pCol - 1; i < w * h; i += w) {
         // index is available
-        if(board[curIndex] == 0) {
-            pIndex = curIndex;
-            board[pIndex] = pNum;
+        if(board[i] == 0) {
+            board[i] = pNum;
+            pIndex = i;
             break;
-        }
-        // column full
-        if(i == h - 1){
-            pIndex = -1;
         }
     }
 
@@ -250,16 +243,6 @@ void printBoard(int *board, int w, int h) {
         printf("|\n");
     }
     printf("\n\n");
-
-
-//    if (pNum == 1) {
-//        pNum = 2;
-//    }
-//    else {
-//        pNum = 1;
-//    }
-//    printf("Player %d select a column: ", pNum);
-
 }
 
 /********************************************************************/

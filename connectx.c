@@ -34,44 +34,25 @@ int main() {
     if(size == bHeight * bWidth){
         printBoard(board, bWidth, bHeight);
     }
-    printf("p1 column 1:\n");
-    move(board, 1, bWidth, bHeight, 2);
+    int index = move(board, 1, bWidth, bHeight, 1);
+    printf("index: %i\n", index);
 
-    printf("p1 column 2:\n");
-    move(board, 1, bWidth, bHeight, 3);
+    index = move(board, 1, bWidth, bHeight, 1);
+    printf("index: %i\n", index);
+    index = move(board, 1, bWidth, bHeight, 1);
+    printf("index: %i\n", index);
+    index = move(board, 1, bWidth, bHeight, 1);
+    printf("index: %i\n", index);
+    index = move(board, 1, bWidth, bHeight, 1);
+    printf("index: %i\n", index);
+    index = move(board, 1, bWidth, bHeight, 1);
+    printf("index: %i\n", index);
+    index = move(board, 1, bWidth, bHeight, 1);
+    printf("index: %i\n", index);
 
-    printf("p1 column 2:\n\n");
-    move(board, 1, bWidth, bHeight, 3);
 
-    printf("p1 column 3:\n\n");
-    move(board, 1, bWidth, bHeight, 4);
-    printf("p1 column 3:\n\n");
-    move(board, 1, bWidth, bHeight, 4);
-    printf("p1 column 3:\n\n");
-    move(board, 1, bWidth, bHeight, 4);
-
-    printf("p1 column 4:\n\n");
-    move(board, 1, bWidth, bHeight, 5);
-    printf("p1 column 4:\n\n");
-    move(board, 1, bWidth, bHeight, 5);
-    printf("p1 column 4:\n\n");
-    move(board, 1, bWidth, bHeight, 5);
-    printf("p1 column 4:\n\n");
-    move(board, 1, bWidth, bHeight, 5);
 
     printBoard(board, bWidth, bHeight);
-    int con = checkDiagLowLeftUpRight(board, 1, 25, bWidth, bHeight, 49);
-
-    printf("connected: %d\n\n", con);
-
-//    printf("p1 column 1:\n\n");
-//    move(board, 1, bWidth, bHeight, 1);
-//    printBoard(board, bWidth, bHeight);
-//
-//    printf("p2 column 6:\n\n");
-//    move(board, 2, bWidth, bHeight, 6);
-//    printBoard(board, bWidth, bHeight);
-
 
     free(board);
     return 0;

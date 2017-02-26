@@ -20,10 +20,10 @@ int checkRow(int *board, int pNum, int index, int w,
              int h, int size);
 int checkCol(int *board, int pNum, int index, int w, int h,
              int size);
-int checkDiagLowLeftUpRight(int *board, int pNum, int index,
-                            int w, int h, int size);
-int checkDiagLowRightUpLeft(int *board, int pNum, int index,
-                            int w, int h, int size);
+int checkDiag1(int *board, int pNum, int index,
+               int w, int h, int size);
+int checkDiag2(int *board, int pNum, int index,
+               int w, int h, int size);
 int createBoard(int **board, int w, int h);
 int move(int *board, int pNum, int w, int h, int pCol);
 void printBoard(int *board, int w, int h);
