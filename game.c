@@ -4,7 +4,20 @@
 /*  Derrik Fleming                                                  */
 /*  CIS343-01 with Prof Ira Woodring                                */
 /********************************************************************/
-/* The following methods aid in the game play of ConnectX.          */
+/* The following methods aid in the game play of ConnectX. For ref  */
+/* the allocated memory is analogous to a Connect 4 game board in   */
+/* that: Example: Default Board 7 x 7:                              */
+/*                                                                  */
+/* || 0 || 0 || 0 || 0 || 0 || 0 || 0 || board[42] through board[48]*/
+/* || 0 || 0 || 0 || 0 || 0 || 0 || 0 || board[35] through board[41]*/
+/* || 0 || 0 || 0 || 0 || 0 || 0 || 0 || board[28] through board[34]*/
+/* || 0 || 0 || 0 || 0 || 0 || 0 || 0 || board[21] through board[27]*/
+/* || 0 || 0 || 0 || 0 || 0 || 0 || 0 || board[14] through board[20]*/
+/* || 0 || 0 || 0 || 0 || 0 || 0 || 0 || board[7]  through board[13]*/
+/* || 0 || 0 || 0 || 0 || 0 || 0 || 0 || board[0]  through board[6] */
+/* -------------------------------------                            */
+/* || 1 || 2 || 3 || 4 || 5 || 6 || 7 ||                            */
+/*                COLUMNS                                           */
 /*                                                                  */
 /********************************************************************/
 
@@ -86,7 +99,7 @@ int checkRow(int *board, int pNum, int index, int w,
 /********************************************************************/
 int checkCol(int *board, int pNum, int index, int w, int h, 
              int size) {
-    int count = 1;
+    int count = 0;
     
     // look "down"
     // iterates "down" col of index
@@ -214,10 +227,11 @@ int createBoard(int **board, int w, int h) {
 /*                                                                  */
 /********************************************************************/
 int move(int *board, int pNum, int w, int h, int pCol) {
-    // iterating through each row to find the first available index
-    //   in the selected column
+    // default index, returned if column full
     int pIndex = -1;
 
+    // iterating through each row to find the first available index
+    //   in the selected column
     for (int i = pCol - 1; i < w * h; i += w) {
         // index is available
         if(board[i] == 0) {
