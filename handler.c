@@ -21,7 +21,6 @@ struct argp_option options[] = {
         {"connect",	'c',	"CONNECT", 	0, 	"Win with a series of." },
         {"load",	'l',	"LOAD", 	0, 	"Load previous game." },
         {"save",    's',    "SAVE",     0,  "Save the current game."}
-        { 0 }
 };
 
 struct argp argp = { options, parse_opt, args_doc, doc };

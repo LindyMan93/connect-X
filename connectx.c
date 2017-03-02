@@ -37,18 +37,18 @@ void printBoard(int *board, int w, int h) {
 
 int main(int argc, char *argv[]) {
     int* board;
-    int bHeight;
-    int bWidth;
-    int toWin;
+    int bHeight=7;
+    int bWidth=7;
+    int toWin=4;
     int pNum = 1;
     int isComplete = 0;
-    int index;
+    int index=0;
 
     setup(argc, argv);
 
-    bWidth = argv[1];
-    bHeight = argv[2];
-    toWin = argv[3];
+    bWidth = atoi(argv[1]);
+    bHeight = atoi(argv[2]);
+    toWin = atoi(argv[3]);
 
 
     createBoard(&board, bWidth, bHeight);
