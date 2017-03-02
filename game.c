@@ -222,6 +222,22 @@ int createBoard(int **board, int w, int h) {
 }
 
 /********************************************************************/
+/*                    */
+/*                                                                  */
+/********************************************************************/
+int boardNotFull(int* board, int w, int h, int size){
+    int notFull = 0; // board full by default
+
+    for(int i = size - w; i < size; i++) {
+        if(board[i] == 0){
+            notFull = 1; // board not full
+            break;
+        }
+    }
+    return notFull;
+}
+
+/********************************************************************/
 /* Places the players in the selected column, returns index if      */
 /* column not full, if column full returns -1.                      */
 /*                                                                  */
@@ -242,21 +258,6 @@ int move(int *board, int pNum, int w, int h, int pCol) {
     }
 
     return pIndex;
-}
-
-/********************************************************************/
-/* Prints a char array of the current board to the console.         */
-/*                                                                  */
-/********************************************************************/
-void printBoard(int *board, int w, int h) {
-    for (int i = h - 1; i >= 0; i--) {
-        printf("|");
-        for (int j = 0; j < w; j++) {
-            printf("| %d |", board[i * w + j]);
-        }
-        printf("|\n");
-    }
-    printf("\n\n");
 }
 
 /********************************************************************/

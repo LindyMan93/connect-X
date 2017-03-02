@@ -1,5 +1,5 @@
 /********************************************************************/
-/* GameTest.c                                                           */
+/* GameTest.c                                                       */
 /* Author:                                                          */
 /*  Derrik Fleming                                                  */
 /*  CIS343-01 with Prof Ira Woodring                                */
@@ -24,6 +24,7 @@
 /********************************************************************/
 
 #include "gametest.h"
+#include "cutest.h"
 
 void init(int* board, int w, int h){
     createBoard(&board, w, h);
@@ -519,7 +520,8 @@ void testDiag1LeftCol(){
         board[i] = 1;
     }
     assert_eq(4, checkDiag1(board, pNum, 7, w, h, (w * h)),
-              "18: Test: Diag1. Low left to up right on left side. Win Found.\n");
+              "18: Test: Diag1. Low left to up right on left side. "
+                      "Win Found.\n");
     free(board);
 }
 
@@ -545,7 +547,8 @@ void testDiag1LeftCorner(){
         board[i] = 1;
     }
     assert_eq(4, checkDiag1(board, pNum, 0, w, h, (w * h)),
-              "19: Test: Diag1. Low left to up right left corner. Win Found.\n");
+              "19: Test: Diag1. Low left to up right left corner. "
+                      "Win Found.\n");
     free(board);
 }
 
@@ -598,7 +601,8 @@ void testDiag1Top(){
         board[i] = 1;
     }
     assert_eq(4, checkDiag1(board, pNum, 1, w, h, (w * h)),
-              "21: Test: Diag1. Low left to up right top row. Win Found.\n");
+              "21: Test: Diag1. Low left to up right top row. "
+                      "Win Found.\n");
     free(board);
 }
 
@@ -818,6 +822,28 @@ void testDiag2RightSide(){
     free(board);
 }
 
+int testCompleteCheckHorizontal(){
+    int* board;
+    int w = 7;
+    int h = 7;
+    int pNum = 1;
+    int toWin = 4;
+    int true = 1;
+    int false = 0;
+    init(board, w, h);
+
+    for (int i =  1; i < 4; i++) {
+        move(board, pNum, w, h, i);
+        assert_eq(false, isComplete(board, pNum, i, w, h, (w * h)),
+                  "30: Game has not been won yet.\n");
+    }
+
+    move(board, pNum, w, h, 4);
+
+    assert_eq(true, isComplete(board, pNum, 3, w, h, (w * h)),
+              "31: Game has been won.");
+}
+
 /********************************************************************/
 /* Test move from empty column to full column.                      */
 /*                                                                  */
@@ -850,3 +876,81 @@ void testMove1(){
 
 
 
+/********************************************************************/
+/* Build CuSuite.                                                   */
+/*                                                                  */
+/********************************************************************/
+CuSuite* connectXSuite() {
+    CuSuite* suite = CuSuiteNew();
+
+    SUITE_ADD_TEST(suite, testHorizontalCheckBottomRow1);
+    SUITE_ADD_TEST(suite, testHorizontalCheckBottomRow2);
+    SUITE_ADD_TEST(suite, testHorizontalCheckBottomRow3);
+    SUITE_ADD_TEST(suite, testHorizontalCheckTopRow1);
+    SUITE_ADD_TEST(suite, testHorizontalCheckTopRow2);
+    SUITE_ADD_TEST(suite, testHorizontalCheckTopRow3);
+    SUITE_ADD_TEST(suite, testHorizontalCheckCenterRow1);
+    SUITE_ADD_TEST(suite, testHorizontalCheckCenterRow2);
+    SUITE_ADD_TEST(suite, testHorizontalCheckCenterRow3);
+    SUITE_ADD_TEST(suite, testVerticalCheckLeftCol1);
+    SUITE_ADD_TEST(suite, testVerticalCheckLeftCol2);
+    SUITE_ADD_TEST(suite, testVerticalCheckLeftCol3);
+    SUITE_ADD_TEST(suite, testVerticalCheckCenterCol1);
+    SUITE_ADD_TEST(suite, testVerticalCheckCenterCol2);
+    SUITE_ADD_TEST(suite, testVerticalCheckCenterCol3);
+    SUITE_ADD_TEST(suite, testVerticalCheckRightCol1);
+    SUITE_ADD_TEST(suite, testVerticalCheckRightCol2);
+    SUITE_ADD_TEST(suite, testVerticalCheckRightCol3);
+    SUITE_ADD_TEST(suite, testDiag1LeftCol);
+    SUITE_ADD_TEST(suite, testDiag1LeftCorner);
+    SUITE_ADD_TEST(suite, testDiag1Bottom);
+    SUITE_ADD_TEST(suite, testDiag1Top);
+    SUITE_ADD_TEST(suite, testDiag1RightCorner);
+    SUITE_ADD_TEST(suite, testDiag1RightSide);
+    SUITE_ADD_TEST(suite, testDiag2LeftSide);
+    SUITE_ADD_TEST(suite, testDiag2LeftCorner);
+    SUITE_ADD_TEST(suite, testDiag2Top);
+    SUITE_ADD_TEST(suite, testDiag2Bottom);
+    SUITE_ADD_TEST(suite, testDiag2RightCorner);
+    SUITE_ADD_TEST(suite, testDiag2RightSide);
+    SUITE_ADD_TEST(suite, testMove1);
+    SUITE_ADD_TEST(suite, testCompleteCheckHorizontal);
+    SUITE_ADD_TEST(suite, );
+    SUITE_ADD_TEST(suite, );
+    SUITE_ADD_TEST(suite, );
+    SUITE_ADD_TEST(suite, );
+    SUITE_ADD_TEST(suite, );
+    SUITE_ADD_TEST(suite, );
+    SUITE_ADD_TEST(suite, );
+    SUITE_ADD_TEST(suite, );
+    SUITE_ADD_TEST(suite, );
+    SUITE_ADD_TEST(suite, );
+    SUITE_ADD_TEST(suite, );
+    SUITE_ADD_TEST(suite, );
+    SUITE_ADD_TEST(suite, );
+
+}
+
+/********************************************************************/
+/* Run CuSuite.                                                     */
+/*                                                                  */
+/********************************************************************/
+void testConnectX(void) {
+    CuString* results = CuStringNew();
+    CuSuite* suite = CuSuiteNew();
+
+    CuSuiteAddSuite(suite, connectXSuite());
+    CuSuiteRun(suite);
+    CuSuiteSummary(suite, output);
+    CuSuiteDetails(suite, output);
+    printf("%s\n", results->buffer);
+}
+
+/********************************************************************/
+/*                                                                  */
+/*                                                                  */
+/********************************************************************/
+int main(void) {
+    testConnectX();
+    return 0;
+}

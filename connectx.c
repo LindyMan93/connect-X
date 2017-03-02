@@ -17,43 +17,58 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-//#include <argp.h>
-
+#include "handler.h"
 #include "game.h"
 
-
-int main() {
-    int* board;
-    int bHeight = 7;
-    int bWidth = 7;
-    int toWin = 4;
-
-    int size = createBoard(&board, bWidth, bHeight);
-
-    printf("Board created:\n");
-    if(size == bHeight * bWidth){
-        printBoard(board, bWidth, bHeight);
+/********************************************************************/
+/* Prints a representation of the current board to the console.     */
+/*                                                                  */
+/********************************************************************/
+void printBoard(int *board, int w, int h) {
+    for (int i = h - 1; i >= 0; i--) {
+        printf("|");
+        for (int j = 0; j < w; j++) {
+            printf("| %d |", board[i * w + j]);
+        }
+        printf("|\n");
     }
-    int index = move(board, 1, bWidth, bHeight, 1);
-    printf("index: %i\n", index);
+    printf("\n\n");
+}
 
-    index = move(board, 1, bWidth, bHeight, 1);
-    printf("index: %i\n", index);
-    index = move(board, 1, bWidth, bHeight, 1);
-    printf("index: %i\n", index);
-    index = move(board, 1, bWidth, bHeight, 1);
-    printf("index: %i\n", index);
-    index = move(board, 1, bWidth, bHeight, 1);
-    printf("index: %i\n", index);
-    index = move(board, 1, bWidth, bHeight, 1);
-    printf("index: %i\n", index);
-    index = move(board, 1, bWidth, bHeight, 1);
-    printf("index: %i\n", index);
+int main(int argc, char *argv[]) {
+    int* board;
+    int bHeight;
+    int bWidth;
+    int toWin;
+    int pNum = 1;
+    int isComplete = 0;
+    int index;
+
+    setup(argc, argv);
+
+    bWidth = argv[1];
+    bHeight = argv[2];
+    toWin = argv[3];
 
 
+    createBoard(&board, bWidth, bHeight);
+    int size = bHeight * bWidth;
 
-    printBoard(board, bWidth, bHeight);
 
+    while(isComplete == 0) {
+        printBoard(board, bWidth, bHeight);
+
+        printf("Player %i, select a column (1-%i", pNum, bWidth);
+
+
+        // check if last played piece caused end-game state
+        isComplete = isComplete(board, pNum, index, bWidth,
+                                bHeight, size);
+
+        // player's turn over
+        pNum = pNum == 1 ? 2 : 1;
+
+    }
     free(board);
     return 0;
 }
