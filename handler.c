@@ -53,11 +53,17 @@ error_t parse_opt(int key, char* arg, struct argp_state *state){
 }
 
 
-void setup(int argc, char** argv){
+void setup(int argc, char** argv, int* bWidth, int* bHeight){
 
     int width = 7;
     int height = 7;
     int connect = 4;
+    bWidth = &width;
+    bHeight = &height;
+    printf("setup default values: ");
+    printf("width: %i\n", width);
+    printf("height: %i\n", height);
+    printf("connect: %i\n", connect);
 
     char* load_file = NULL;
     // Call argp to do its thing.
@@ -71,7 +77,8 @@ void setup(int argc, char** argv){
         //load file
 
     }
+    printf("setup post overwrite:");
     printf("width: %i\n", width);
-    printf("width: %i\n", height);
-    printf("width: %i\n", connect);
+    printf("height: %i\n", height);
+    printf("connect: %i\n", connect);
 } 

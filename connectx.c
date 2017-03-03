@@ -37,18 +37,18 @@ void printBoard(int *board, int w, int h) {
 
 int main(int argc, char** argv) {
     int* board;
-    int bHeight = 7;
-    int bWidth = 7;
-    int toWin = 4;
+    int* bHeight;
+    int* bWidth;
+    int toWin;
     int pNum = 1;
     int isComplete = 0;
     int index=0;
 
-    setup(argc, argv);
+    setup(argc, argv, bWidth, bHeight);
 
-    printf("%i\n", bWidth);
-    printf("%i\n", bHeight);
-    printf("%i\n", toWin);
+    printf("Main:\n");
+    printf("Width: %i\n", bWidth);
+    printf("Height: %i\n", bWidth);
 //
 //    createBoard(&board, bWidth, bHeight);
 //    int size = bHeight * bWidth;
@@ -68,6 +68,6 @@ int main(int argc, char** argv) {
 //        pNum = pNum == 1 ? 2 : 1;
 //
 //    }
-    free(board);
+//    free(board);
     return 0;
 }
