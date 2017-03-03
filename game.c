@@ -179,7 +179,7 @@ int checkDiag2(int *board, int pNum, int index, int w, int h,
         if (board[i] == pNum) {
             count++;
             printf("Index: %i, Val at index: %i ,Count: %i\n\n", i, board[i], count); 
-        }1
+        }
         if (i % w == w - 1 || board[i] != pNum) {
              printf("Exit on: %i\n\n", i);
             break;
