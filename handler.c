@@ -53,16 +53,8 @@ error_t parse_opt(int key, char* arg, struct argp_state *state){
 }
 
 
-void setup(int argc, char** argv, int* bWidth, int* bHeight){
+void setup(int argc, char** argv, int* bWidth, int* bHeight, int* connect){
     char* load_file = NULL;
-
-    int connect = 4;
-
-    printf("setup default values: ");
-    printf("width: %i\n", *bWidth);
-    printf("height: %i\n", *bHeight);
-    printf("connect: %i\n", connect);
-
 
     // Call argp to do its thing.
     argp_parse(&argp, argc, argv, 0, 0, &arguments);
@@ -70,13 +62,10 @@ void setup(int argc, char** argv, int* bWidth, int* bHeight){
     // them out if they are there.
     *bWidth = arguments.width;
     *bHeight = arguments.height;
-    connect = arguments.connect;
+    *connect = arguments.connect;
     if(arguments.load != NULL){
         //load file
 
     }
-    printf("setup post overwrite:");
-    printf("width: %i\n", *bWidth);
-    printf("height: %i\n", *bHeight);
-    printf("connect: %i\n", connect);
+
 } 

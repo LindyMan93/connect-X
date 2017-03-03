@@ -44,19 +44,16 @@ int main(int argc, char** argv) {
     int isComplete = 0;
     int index=0;
 
-    setup(argc, argv, &bWidth, &bHeight);
+    setup(argc, argv, &bWidth, &bHeight, &toWin);
 
-    printf("Main:\n");
-    printf("Width: %i\n", bWidth);
-    printf("Height: %i\n", bWidth);
-//
-//    createBoard(&board, bWidth, bHeight);
-//    int size = bHeight * bWidth;
-//
-//
-//    while(isComplete == 0) {
-//        printBoard(board, bWidth, bHeight);
-//
+
+    createBoard(&board, bWidth, bHeight);
+    int size = bHeight * bWidth;
+
+
+  //  while(isComplete == 0) {
+        printBoard(board, bWidth, bHeight);
+
 //        printf("Player %i, select a column (1-%i", pNum, bWidth);
 //
 //
@@ -66,8 +63,8 @@ int main(int argc, char** argv) {
 //
 //        // player's turn over
 //        pNum = pNum == 1 ? 2 : 1;
-//
-//    }
-//    free(board);
+
+  //  }
+    free(board);
     return 0;
 }

@@ -19,6 +19,6 @@ struct arguments {
 error_t parse_opt(int key, char* arg, struct argp_state *state);
 
 // Function to begin the parsing process.
-void setup(int argc, char** argv, int* bWidth, int* bHeight);
+void setup(int argc, char** argv, int* bWidth, int* bHeight, int* connect);
 
 #endif //CONNECT_X_HANDLER_H
