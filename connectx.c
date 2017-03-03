@@ -47,8 +47,8 @@ int main(int argc, char** argv) {
     setup(argc, argv, bWidth, bHeight);
 
     printf("Main:\n");
-    printf("Width: %i\n", bWidth);
-    printf("Height: %i\n", bWidth);
+    printf("Width: %i\n", *bWidth);
+    printf("Height: %i\n", *bWidth);
 //
 //    createBoard(&board, bWidth, bHeight);
 //    int size = bHeight * bWidth;
