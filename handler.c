@@ -55,8 +55,7 @@ error_t parse_opt(int key, char* arg, struct argp_state *state){
 
 void setup(int argc, char** argv, int* bWidth, int* bHeight){
     char* load_file = NULL;
-    *bWidth = 7;
-    *bHeight = 7;
+
     int connect = 4;
 
     printf("setup default values: ");
