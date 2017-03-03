@@ -17,6 +17,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "handler.h"
 #include "game.h"
 
@@ -63,29 +64,22 @@ int main(int argc, char** argv) {
     int size = bHeight * bWidth;
 
     while(isComplete == 0) {
-        int pCol = 0;
+        int pCol = -1;
         char input[30];
         printBoard(board, bWidth, bHeight);
-        int valid = 0;
-        while() {
+        while(pCol == -1) {
 
             printf("Player %i, select a column (1-%i): ", pNum, bWidth);
 
             scanf("%s", input);
-            if(input == 's' || input == '-s'){
+            if(strcmp("s", input) || strcmp("-s", input)){
                 printf("Please enter a filename: ");
                 scanf("%s", input);
-                valid = 1;
-            }
-            else if(input[0] == 's' || input == '-s'){
-                printf("Please enter a filename: ");
-                scanf("%s", input);
-                valid = 1;
             }
 
-            pCol = atoi(input);
-            if (pCol <= size){
-
+            if (atoi(input) <= size || atoi(input) > 0){
+                pCol = atoi(input);
+                break;
             }
         }
 
