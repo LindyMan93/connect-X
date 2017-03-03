@@ -10,7 +10,6 @@
 struct arguments {
     int width;
     int height;
-    int square;
     int connect;
     char *load;
     char *save;
