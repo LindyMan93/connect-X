@@ -51,52 +51,55 @@ int main(int argc, char** argv) {
     bHeight = args.height;
     toWin = args.connect;
 
-    printf("Width: %i", bWidth);
-    printf("Height: %i", bHeight);
-    printf("Connect: %i", toWin);
+    if(toWin > bWidth && toWin > bHeight){
+        printf("Invalid game settings detected.\n");
+        printf("Reverting to default game type.\n");
+        bHeight = 7;
+        bWidth = 7;
+        toWin = 4;
+    }
 
-//    createBoard(&board, bWidth, bHeight);
-//    int size = bHeight * bWidth;
-//
-//
-//    while(isComplete == 0) {
-//        int pCol = 0;
-//        char input[30];
-//        printBoard(board, bWidth, bHeight);
-//        int valid = 0;
-//        while() {
-//
-//            printf("Player %i, select a column (1-%i): ", pNum, bWidth);
-//
-//            scanf("%s", input);
-//            if(input == 's' || input == '-s'){
-//                printf("Please enter a filename: ");
-//                scanf("%s", input);
-//                valid = 1;
-//            }
-//            else if(input[0] == 's' || input == '-s'){
-//                printf("Please enter a filename: ");
-//                scanf("%s", input);
-//                valid = 1;
-//            }
-//
-//            pCol = atoi(input);
-//            if (pCol <= size){
-//
-//            }
-//        }
-//
-//        index = move(board, pNum, bWidth, bHeight, pCol);
-//
-//
-//        // check if last played piece caused end-game state
-//        isComplete = gameState(board, pNum, index, bWidth,
-//                                bHeight, size, toWin);
-//
-//        // player's turn over
-//        pNum = pNum == 1 ? 2 : 1;
-//
-//    }
-//    free(board);
+    createBoard(&board, bWidth, bHeight);
+    int size = bHeight * bWidth;
+
+    while(isComplete == 0) {
+        int pCol = 0;
+        char input[30];
+        printBoard(board, bWidth, bHeight);
+        int valid = 0;
+        while() {
+
+            printf("Player %i, select a column (1-%i): ", pNum, bWidth);
+
+            scanf("%s", input);
+            if(input == 's' || input == '-s'){
+                printf("Please enter a filename: ");
+                scanf("%s", input);
+                valid = 1;
+            }
+            else if(input[0] == 's' || input == '-s'){
+                printf("Please enter a filename: ");
+                scanf("%s", input);
+                valid = 1;
+            }
+
+            pCol = atoi(input);
+            if (pCol <= size){
+
+            }
+        }
+
+        index = move(board, pNum, bWidth, bHeight, pCol);
+
+
+        // check if last played piece caused end-game state
+        isComplete = gameState(board, pNum, index, bWidth,
+                                bHeight, size, toWin);
+
+        // player's turn over
+        pNum = pNum == 1 ? 2 : 1;
+
+    }
+    free(board);
     return 0;
 }

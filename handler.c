@@ -20,7 +20,7 @@ struct argp_option options[] = {
         {"square",	's',	"SQUARE",	0,	"Square game board." },
         {"connect",	'c',	"CONNECT", 	0, 	"Win with a series of." },
         {"load",	'l',	"LOAD", 	0, 	"Load previous game." },
-        {"save",    's',    "SAVE",     0,  "Save the current game."}
+        { 0 }
 };
 
 struct argp argp = { options, parse_opt, args_doc, doc };
@@ -61,10 +61,4 @@ void setup(int argc, char** argv, struct arguments *pArgs){
     // Return values are in the arguments struct.  Pull
     // them out if they are there.
     *pArgs = arguments;
-
-//    if(arguments.load != NULL){
-//        //load file
-//
-//    }
-
 } 
