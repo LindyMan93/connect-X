@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
                 scanf("%s", input);
             }
 
-            if (atoi(input) <= size || atoi(input) > 0){
+            if (atoi(input) <= bWidth || atoi(input) > 0){
                 pCol = atoi(input);
                 break;
             }
