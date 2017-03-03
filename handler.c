@@ -58,10 +58,12 @@ void setup(int argc, char** argv, int* bWidth, int* bHeight){
     int width = 7;
     int height = 7;
     int connect = 4;
+    bWidth = &width;
+    bHeight = &height;
 
     printf("setup default values: ");
-    printf("width: %i\n", width);
-    printf("height: %i\n", height);
+    printf("width: %i\n", *bWidth);
+    printf("height: %i\n", *bHeight);
     printf("connect: %i\n", connect);
 
 
@@ -69,17 +71,15 @@ void setup(int argc, char** argv, int* bWidth, int* bHeight){
     argp_parse(&argp, argc, argv, 0, 0, &arguments);
     // Return values are in the arguments struct.  Pull
     // them out if they are there.
-    width = arguments.width;
-    height = arguments.height;
+    *bWidth = arguments.width;
+    *bHeight = arguments.height;
     connect = arguments.connect;
     if(arguments.load != NULL){
         //load file
 
     }
-    *bWidth = width;
-    *bHeight = height;
     printf("setup post overwrite:");
-    printf("width: %i\n", width);
-    printf("height: %i\n", height);
+    printf("width: %i\n", *bWidth);
+    printf("height: %i\n", *bHeight);
     printf("connect: %i\n", connect);
 } 
