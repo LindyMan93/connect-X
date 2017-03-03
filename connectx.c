@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
         scanf("%s", input);
         pCol = atoi(input);
 
-        move(board, pNum, bWidth, bHeight, pCol);
+        index = move(board, pNum, bWidth, bHeight, pCol);
 
 
         // check if last played piece caused end-game state
