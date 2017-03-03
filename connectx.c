@@ -35,7 +35,7 @@ void printBoard(int *board, int w, int h) {
     printf("\n\n");
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char** argv) {
     int* board;
     int bHeight = 7;
     int bWidth = 7;
@@ -46,10 +46,10 @@ int main(int argc, char *argv[]) {
 
     setup(argc, argv);
 
-    bWidth = atoi(argv[0]);
-    bHeight = atoi(argv[1]);
+    bWidth = atoi(*argv[1]);
+    bHeight = atoi(*argv[2]);
 
-    toWin = atoi(argv[3]);
+    toWin = atoi(*argv[3]);
 
 
     printf("%i\n", bWidth);
