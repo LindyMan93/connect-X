@@ -58,7 +58,7 @@ int gameState(int *board, int pNum, int index, int w, int h,
 int checkRow(int *board, int pNum, int index, int w,
              int h, int size) {
     int count = 0;
-
+    printf("CHECK ROW: \n\n");
     // look "left"
     // iterates across row of index in "left" direction
     // break on perimeter col (index % w == 0) or
@@ -66,7 +66,7 @@ int checkRow(int *board, int pNum, int index, int w,
     for (int i = index; i >= 0 ; i--) {
         if (board[i] == pNum) {
             count++;
-            printf("Index: %i, Count: %i\n\n", i, count);
+            printf("Index: %i, Val at index: %i ,Count: %i\n\n", i, board[i], count);
         }
         if (i % w == 0 || board[i] != pNum) {
             printf("Exit on: %i\n\n", i);
@@ -81,7 +81,7 @@ int checkRow(int *board, int pNum, int index, int w,
     for (int i = index + 1; i < size ; i++) {
         if (board[i] == pNum) {
             count++;
-            printf("Index: %i, Count: %i\n\n", i, count);
+            printf("Index: %i, Val at index: %i ,Count: %i\n\n", i, board[i], count);
         }
         if (i % w == w - 1 || board[i] != pNum) {
             printf("Exit on: %i\n\n", i);
@@ -100,14 +100,14 @@ int checkRow(int *board, int pNum, int index, int w,
 int checkCol(int *board, int pNum, int index, int w, int h, 
              int size) {
     int count = 0;
-    
+    printf("CHECK COL: \n\n");
     // look "down"
     // iterates "down" col of index
     // break when board[index] != pNum
     for (int i = index; i >= 0; i -= w) {
         if (board[i] == pNum) {
             count++;
-            printf("Index: %i, Count: %i\n\n", i, count);
+            printf("Index: %i, Val at index: %i ,Count: %i\n\n", i, board[i], count);
         }
         if(board[i] != pNum) {
             printf("Exit on: %i\n\n", i);
@@ -126,7 +126,7 @@ int checkCol(int *board, int pNum, int index, int w, int h,
 int checkDiag1(int *board, int pNum, int index, int w, int h,
                int size) {
     int count = 0;
-
+    printf("CHECK DIAG1: \n\n");
     // look "down" and "left"
     // iterates diagonally "down" and "left" from index
     // break on perimeter col (index % w == 0) or
@@ -134,7 +134,7 @@ int checkDiag1(int *board, int pNum, int index, int w, int h,
     for (int i = index; i >= 0; i -= w + 1) {
         if (board[i] == pNum) {
             count++;
-            printf("Index: %i, Count: %i\n\n", i, count);
+            printf("Index: %i, Val at index: %i ,Count: %i\n\n", i, board[i], count);
         }
         if (i % w == 0 || board[i] != pNum) {
             printf("Exit on: %i\n\n", i);
@@ -149,7 +149,7 @@ int checkDiag1(int *board, int pNum, int index, int w, int h,
     for (int i = index + w + 1; i < size; i += w + 1) {
         if (board[i] == pNum) {
             count++;
-            printf("Index: %i, Count: %i\n\n", i, count);
+            printf("Index: %i, Val at index: %i ,Count: %i\n\n", i, board[i], count);
         }
         if (i % w == w - 1 || board[i] != pNum) {
             printf("Exit on: %i\n\n", i);
@@ -168,16 +168,16 @@ int checkDiag1(int *board, int pNum, int index, int w, int h,
 int checkDiag2(int *board, int pNum, int index, int w, int h,
                int size) {
     int count = 0;
-
+    printf("CHECK DIAG2: \n\n");
     // look "down" and "right"
     // iterates diagonally "down" and "right" from index
     // break on perimeter col (index % w == 0) or
     // when board[index] != pNum
-    int i = index;
+    
     for (int i = index; i >= 0; i -= w - 1) {
         if (board[i] == pNum) {
             count++;
-             printf("Index: %i, Count: %i\n\n", i, count);
+            printf("Index: %i, Val at index: %i ,Count: %i\n\n", i, board[i], count); 
         }
         if (i % w == w - 1 || board[i] != pNum) {
              printf("Exit on: %i\n\n", i);
@@ -192,7 +192,7 @@ int checkDiag2(int *board, int pNum, int index, int w, int h,
     for (int i = index + w - 1; i < size; i += w - 1) {
         if (board[i] == pNum) {
             count++;
-             printf("Index: %i, Count: %i\n\n", i, count);
+            printf("Index: %i, Val at index: %i ,Count: %i\n\n", i, board[i], count);
         }
         else if (i % w == 0 || board[i] != pNum) {
              printf("Exit on: %i\n\n", i);
@@ -256,7 +256,7 @@ int move(int *board, int pNum, int w, int h, int pCol) {
             break;
         }
     }
-
+    printf("Played Index: %i\n\n", pIndex);
     return pIndex;
 }
 
