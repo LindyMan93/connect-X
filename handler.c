@@ -53,19 +53,18 @@ error_t parse_opt(int key, char* arg, struct argp_state *state){
 }
 
 
-void setup(int argc, char** argv, int* bWidth, int* bHeight, int* connect){
+void setup(int argc, char** argv, struct arguments *pArgs){
     char* load_file = NULL;
 
     // Call argp to do its thing.
     argp_parse(&argp, argc, argv, 0, 0, &arguments);
     // Return values are in the arguments struct.  Pull
     // them out if they are there.
-    *bWidth = arguments.width;
-    *bHeight = arguments.height;
-    *connect = arguments.connect;
-    if(arguments.load != NULL){
-        //load file
+    *pArgs = arguments;
 
-    }
+//    if(arguments.load != NULL){
+//        //load file
+//
+//    }
 
 } 

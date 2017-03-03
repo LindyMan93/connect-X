@@ -42,35 +42,61 @@ int main(int argc, char** argv) {
     int toWin = 4;
     int pNum = 1;
     int isComplete = 0;
+    struct arguments args;
     int index=0;
 
-    setup(argc, argv, &bWidth, &bHeight, &toWin);
 
+    setup(argc, argv, &args);
+    bWidth = args.width;
+    bHeight = args.height;
+    toWin = args.connect;
 
-    createBoard(&board, bWidth, bHeight);
-    int size = bHeight * bWidth;
+    printf("Width: %i", bWidth);
+    printf("Height: %i", bHeight);
+    printf("Connect: %i", toWin);
 
-
-    while(isComplete == 0) {
-        int pCol;
-        char input[30];
-        printBoard(board, bWidth, bHeight);
-
-        printf("Player %i, select a column (1-%i): ", pNum, bWidth);
-        scanf("%s", input);
-        pCol = atoi(input);
-
-        index = move(board, pNum, bWidth, bHeight, pCol);
-
-
-        // check if last played piece caused end-game state
-        isComplete = gameState(board, pNum, index, bWidth,
-                                bHeight, size, toWin);
-
-        // player's turn over
-        pNum = pNum == 1 ? 2 : 1;
-
-    }
-    free(board);
+//    createBoard(&board, bWidth, bHeight);
+//    int size = bHeight * bWidth;
+//
+//
+//    while(isComplete == 0) {
+//        int pCol = 0;
+//        char input[30];
+//        printBoard(board, bWidth, bHeight);
+//        int valid = 0;
+//        while() {
+//
+//            printf("Player %i, select a column (1-%i): ", pNum, bWidth);
+//
+//            scanf("%s", input);
+//            if(input == 's' || input == '-s'){
+//                printf("Please enter a filename: ");
+//                scanf("%s", input);
+//                valid = 1;
+//            }
+//            else if(input[0] == 's' || input == '-s'){
+//                printf("Please enter a filename: ");
+//                scanf("%s", input);
+//                valid = 1;
+//            }
+//
+//            pCol = atoi(input);
+//            if (pCol <= size){
+//
+//            }
+//        }
+//
+//        index = move(board, pNum, bWidth, bHeight, pCol);
+//
+//
+//        // check if last played piece caused end-game state
+//        isComplete = gameState(board, pNum, index, bWidth,
+//                                bHeight, size, toWin);
+//
+//        // player's turn over
+//        pNum = pNum == 1 ? 2 : 1;
+//
+//    }
+//    free(board);
     return 0;
 }
