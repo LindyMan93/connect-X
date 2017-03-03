@@ -66,10 +66,10 @@ int checkRow(int *board, int pNum, int index, int w,
     for (int i = index; i >= 0 ; i--) {
         if (board[i] == pNum) {
             count++;
-            // printf("Index: %i, Count: %i\n\n", i, count);
+            printf("Index: %i, Count: %i\n\n", i, count);
         }
         if (i % w == 0 || board[i] != pNum) {
-            // printf("Exit on: %i\n\n", i);
+            printf("Exit on: %i\n\n", i);
             break;
         }
     }
@@ -81,14 +81,14 @@ int checkRow(int *board, int pNum, int index, int w,
     for (int i = index + 1; i < size ; i++) {
         if (board[i] == pNum) {
             count++;
-            // printf("Index: %i, Count: %i\n\n", i, count);
+            printf("Index: %i, Count: %i\n\n", i, count);
         }
         if (i % w == w - 1 || board[i] != pNum) {
-            // printf("Exit on: %i\n\n", i);
+            printf("Exit on: %i\n\n", i);
             break;
         }
     }
-
+    printf("Check Row Count: %i\n", count);
     return count;
 }
 
@@ -107,14 +107,14 @@ int checkCol(int *board, int pNum, int index, int w, int h,
     for (int i = index; i >= 0; i -= w) {
         if (board[i] == pNum) {
             count++;
-            // printf("Index: %i, Count: %i\n\n", i, count);
+            printf("Index: %i, Count: %i\n\n", i, count);
         }
         if(board[i] != pNum) {
-            // printf("Exit on: %i\n\n", i);
+            printf("Exit on: %i\n\n", i);
             break;
         }
     }
-
+    printf("Check Col Count: %i\n", count);
     return count;
 }
 
@@ -134,10 +134,10 @@ int checkDiag1(int *board, int pNum, int index, int w, int h,
     for (int i = index; i >= 0; i -= w + 1) {
         if (board[i] == pNum) {
             count++;
-            // printf("Index: %i, Count: %i\n\n", i, count);
+            printf("Index: %i, Count: %i\n\n", i, count);
         }
         if (i % w == 0 || board[i] != pNum) {
-            // printf("Exit on: %i\n\n", i);
+            printf("Exit on: %i\n\n", i);
             break;
         }
     }
@@ -149,14 +149,14 @@ int checkDiag1(int *board, int pNum, int index, int w, int h,
     for (int i = index + w + 1; i < size; i += w + 1) {
         if (board[i] == pNum) {
             count++;
-            // printf("Index: %i, Count: %i\n\n", i, count);
+            printf("Index: %i, Count: %i\n\n", i, count);
         }
         if (i % w == w - 1 || board[i] != pNum) {
-            // printf("Exit on: %i\n\n", i);
+            printf("Exit on: %i\n\n", i);
             break;
         }
     }
-
+    printf("Check Diag 1 Count: %i\n", count);
     return count;
 }
 
@@ -177,10 +177,10 @@ int checkDiag2(int *board, int pNum, int index, int w, int h,
     for (int i = index; i >= 0; i -= w - 1) {
         if (board[i] == pNum) {
             count++;
-            // printf("Index: %i, Count: %i\n\n", i, count);
+             printf("Index: %i, Count: %i\n\n", i, count);
         }
         if (i % w == w - 1 || board[i] != pNum) {
-            // printf("Exit on: %i\n\n", i);
+             printf("Exit on: %i\n\n", i);
             break;
         }
     }
@@ -192,14 +192,14 @@ int checkDiag2(int *board, int pNum, int index, int w, int h,
     for (int i = index + w - 1; i < size; i += w - 1) {
         if (board[i] == pNum) {
             count++;
-            // printf("Index: %i, Count: %i\n\n", i, count);
+             printf("Index: %i, Count: %i\n\n", i, count);
         }
         else if (i % w == 0 || board[i] != pNum) {
-            // printf("Exit on: %i\n\n", i);
+             printf("Exit on: %i\n\n", i);
             break;
         }
     }
-
+    printf("Check Diag 2 Count: %i\n", count);
     return count;
 }
 /********************************************************************/
