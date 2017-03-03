@@ -67,28 +67,59 @@ int main(int argc, char** argv) {
         int pCol = -1;
         char input[30];
         printBoard(board, bWidth, bHeight);
-        while(pCol == -1) {
+        while(pCol < 0) {
 
             printf("Player %i, select a column (1-%i): ", pNum, bWidth);
 
             scanf("%s", input);
-            if(strcmp("s", input) == 1 || strcmp("-s", input) == 1){
+            if(strcmp("s", input) == 0 || strcmp("-s", input) == 0){
                 printf("Please enter a filename: ");
                 scanf("%s", input);
             }
 
-            if (atoi(input) <= bWidth || atoi(input) > 0){
-                pCol = atoi(input);
+            if(strcmp("l", input) == 0 || strcmp("-l", input) == 0){
+                printf("Please enter a filename: ");
+                scanf("%s", input);
+            }
+
+            pCol = atoi(input);
+            if (pCol > bWidth){
+                printf("Invalid column choice. Column choice"
+                    " made by index.");
+                pCol = pCol % bWidth;
                 break;
             }
+            if (pCol < 0){
+                printf("Invalid column choice. Try again.");
+                pCol = -1;
+            }
         }
-
+        // stores value of the index the player played at
         index = move(board, pNum, bWidth, bHeight, pCol);
 
 
         // check if last played piece caused end-game state
+        // passing the last played index in to check
+        // if in coincides with a series larger than toWin 
         isComplete = gameState(board, pNum, index, bWidth,
                                 bHeight, size, toWin);
+        // End Game prompt
+        if(isComplete == 1){
+            printf("************************************\n");
+            printf("*  Congrats Player %i, you've won!  *\n", pNum);
+            printf("************************************\n\n\n");
+
+            char playAgain[30];
+            while(isComplete == 1){
+                printf("Play again (y/n)? ");
+                scanf("%s", playAgain);
+                if(strcmp("y", playAgain) == 0 || strcmp("yes", playAgain) == 0){
+                    isComplete = 0;
+                    pNum = 2;
+                    createBoard(&board, bWidth, bHeight);
+                }
+            }
+        }
 
         // player's turn over
         pNum = pNum == 1 ? 2 : 1;
