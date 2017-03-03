@@ -46,9 +46,9 @@ int main(int argc, char *argv[]) {
 
     setup(argc, argv);
 
-    bWidth = atoi(argv[1]);
-    bHeight = atoi(argv[2]);
-    toWin = atoi(argv[3]);
+    bWidth = argv[1];
+    bHeight = argv[2];
+    toWin = argv[4];
 
 
     printf("%i\n", bWidth);
