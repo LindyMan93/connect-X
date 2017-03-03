@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int isComplete(int *board, int pNum, int index, int w, int h,
+int gameState(int *board, int pNum, int index, int w, int h,
                int size, int toWin);
 int checkRow(int *board, int pNum, int index, int w,
              int h, int size);

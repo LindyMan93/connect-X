@@ -33,7 +33,7 @@
 /* indicating the game has been one by pNum.                        */
 /*                                                                  */
 /********************************************************************/
-int isComplete(int *board, int pNum, int index, int w, int h,
+int gameState(int *board, int pNum, int index, int w, int h,
                   int size, int toWin) {
     // isComplete 0 by default
     int isComplete = 0;

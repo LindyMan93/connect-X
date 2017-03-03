@@ -37,9 +37,9 @@ void printBoard(int *board, int w, int h) {
 
 int main(int argc, char *argv[]) {
     int* board;
-    int bHeight=7;
-    int bWidth=7;
-    int toWin=4;
+    int bHeight = 7;
+    int bWidth = 7;
+    int toWin = 4;
     int pNum = 1;
     int isComplete = 0;
     int index=0;
@@ -62,8 +62,8 @@ int main(int argc, char *argv[]) {
 
 
         // check if last played piece caused end-game state
-        isComplete = isComplete(board, pNum, index, bWidth,
-                                bHeight, size);
+        isComplete = gameState(board, pNum, index, bWidth,
+                                bHeight, size, toWin);
 
         // player's turn over
         pNum = pNum == 1 ? 2 : 1;
