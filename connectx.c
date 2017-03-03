@@ -51,24 +51,28 @@ int main(int argc, char *argv[]) {
     toWin = atoi(argv[3]);
 
 
-    createBoard(&board, bWidth, bHeight);
-    int size = bHeight * bWidth;
-
-
-    while(isComplete == 0) {
-        printBoard(board, bWidth, bHeight);
-
-        printf("Player %i, select a column (1-%i", pNum, bWidth);
-
-
-        // check if last played piece caused end-game state
-        isComplete = gameState(board, pNum, index, bWidth,
-                                bHeight, size, toWin);
-
-        // player's turn over
-        pNum = pNum == 1 ? 2 : 1;
-
-    }
+    printf("%i\n", bWidth);
+    printf("%i\n", bHeight);
+    printf("%i\n", toWin);
+//
+//    createBoard(&board, bWidth, bHeight);
+//    int size = bHeight * bWidth;
+//
+//
+//    while(isComplete == 0) {
+//        printBoard(board, bWidth, bHeight);
+//
+//        printf("Player %i, select a column (1-%i", pNum, bWidth);
+//
+//
+//        // check if last played piece caused end-game state
+//        isComplete = gameState(board, pNum, index, bWidth,
+//                                bHeight, size, toWin);
+//
+//        // player's turn over
+//        pNum = pNum == 1 ? 2 : 1;
+//
+//    }
     free(board);
     return 0;
 }
