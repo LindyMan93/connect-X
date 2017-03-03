@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
             printf("Player %i, select a column (1-%i): ", pNum, bWidth);
 
             scanf("%s", input);
-            if(strcmp("s", input) || strcmp("-s", input)){
+            if(strcmp("s", input) == 1 || strcmp("-s", input) == 1){
                 printf("Please enter a filename: ");
                 scanf("%s", input);
             }
