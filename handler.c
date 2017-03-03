@@ -71,4 +71,7 @@ void setup(int argc, char** argv){
         //load file
 
     }
+    printf("width: %i\n", width);
+    printf("width: %i\n", height);
+    printf("width: %i\n", connect);
 } 
