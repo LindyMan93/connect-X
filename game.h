@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <file_utils.h>
 
 int gameState(int *board, int pNum, int index, int w, int h,
                int size, int toWin);
@@ -27,8 +28,8 @@ int checkDiag2(int *board, int pNum, int index,
 int createBoard(int **board, int w, int h);
 int move(int *board, int pNum, int w, int h, int pCol);
 void printBoard(int *board, int w, int h);
-int saveGame(int name);
-int loadGame(int name);
+int saveGame(char* fileName, int* board);
+int loadGame(char* fileName);
 
 
 #endif //CONNECTX_GAME_H

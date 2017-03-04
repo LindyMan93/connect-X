@@ -266,9 +266,11 @@ int move(int *board, int pNum, int w, int h, int pCol) {
 /*  */
 /*  */
 /********************************************************************/
-int saveGame(int name){
+int saveGame(char* fileName, int* board){
+    char* pBuffer;
 
-    return name;
+    write_file(fileName, );
+    return 0;
 }
 
 /********************************************************************/
@@ -276,7 +278,7 @@ int saveGame(int name){
 /*  */
 /*  */
 /********************************************************************/
-int loadGame(int name){
+int loadGame(char* fileName){
 
-    return name;
+    return 0;
 }
