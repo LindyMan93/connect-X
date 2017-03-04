@@ -915,20 +915,6 @@ CuSuite* connectXSuite() {
     SUITE_ADD_TEST(suite, testDiag2RightSide);
     SUITE_ADD_TEST(suite, testMove1);
     SUITE_ADD_TEST(suite, testCompleteCheckHorizontal);
-    SUITE_ADD_TEST(suite, );
-    SUITE_ADD_TEST(suite, );
-    SUITE_ADD_TEST(suite, );
-    SUITE_ADD_TEST(suite, );
-    SUITE_ADD_TEST(suite, );
-    SUITE_ADD_TEST(suite, );
-    SUITE_ADD_TEST(suite, );
-    SUITE_ADD_TEST(suite, );
-    SUITE_ADD_TEST(suite, );
-    SUITE_ADD_TEST(suite, );
-    SUITE_ADD_TEST(suite, );
-    SUITE_ADD_TEST(suite, );
-    SUITE_ADD_TEST(suite, );
-
 }
 
 /********************************************************************/
