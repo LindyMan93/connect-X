@@ -78,8 +78,8 @@ int checkRow(int *board, int pNum, int index, int w,
     // iterates across row of index in "right" direction
     // break on perimeter col (index % w == w - 1) or
     // when board[index] != pNum
-    for (int i = index + 1; i < size ; i++) {
-        if (board[i] == pNum) {
+    for (int i = index; i < size ; i++) {
+        if (board[i] == pNum && i != index) {
             count++;
             //printf("Index: %i, Val at index: %i ,Count: %i\n\n", i, board[i], count);
         }
@@ -88,7 +88,7 @@ int checkRow(int *board, int pNum, int index, int w,
             break;
         }
     }
-    //printf("Check Row Count: %i\n", count);
+    printf("Check Row Count: %i\n", count);
     return count;
 }
 
@@ -114,7 +114,7 @@ int checkCol(int *board, int pNum, int index, int w, int h,
             break;
         }
     }
-    //printf("Check Col Count: %i\n", count);
+    printf("Check Col Count: %i\n", count);
     return count;
 }
 
@@ -126,7 +126,7 @@ int checkCol(int *board, int pNum, int index, int w, int h,
 int checkDiag1(int *board, int pNum, int index, int w, int h,
                int size) {
     int count = 0;
-    printf("CHECK DIAG1 FROM INDEX %i: \n\n", index);
+    //printf("CHECK DIAG1 FROM INDEX %i: \n\n", index);
     // look "down" and "left"
     // iterates diagonally "down" and "left" from index
     // break on perimeter col (index % w == 0) or
@@ -146,8 +146,8 @@ int checkDiag1(int *board, int pNum, int index, int w, int h,
     // iterates diagonally "up" and "right" from index
     // break on perimeter col (index % w == 0) or
     // when board[index] != pNum
-    for (int i = index + w + 1; i < size; i += w + 1) {
-        if (board[i] == pNum) {
+    for (int i = index; i < size; i += w + 1) {
+        if (board[i] == pNum && i != index) {
             count++;
             //printf("Index: %i, Val at index: %i ,Count: %i\n\n", i, board[i], count);
         }
@@ -156,7 +156,7 @@ int checkDiag1(int *board, int pNum, int index, int w, int h,
             break;
         }
     }
-    //printf("Check Diag 1 Count: %i\n", count);
+    printf("Check Diag 1 Count: %i\n", count);
     return count;
 }
 
@@ -175,7 +175,6 @@ int checkDiag2(int *board, int pNum, int index, int w, int h,
     // when board[index] != pNum
     
     for (int i = index; i >= 0; i -= w - 1) {
-
         if (board[i] == pNum) {
             count++;
             //printf("Index: %i, Val at index: %i ,Count: %i\n\n", i, board[i], count);
@@ -190,8 +189,8 @@ int checkDiag2(int *board, int pNum, int index, int w, int h,
     // iterates diagonally "up" and "left" from index
     // break on perimeter col (index % w == 0) or
     // when board[index] != pNum
-    for (int i = index + w - 1; i < size; i += w - 1) {
-        if (board[i] == pNum) {
+    for (int i = index; i < size; i += w - 1) {
+        if (board[i] == pNum && i != index) {
             count++;
             //printf("Index: %i, Val at index: %i ,Count: %i\n\n", i, board[i], count);
         }
@@ -200,7 +199,7 @@ int checkDiag2(int *board, int pNum, int index, int w, int h,
             break;
         }
     }
-    //printf("Check Diag 2 Count: %i\n", count);
+    printf("Check Diag 2 Count: %i\n", count);
     return count;
 }
 /********************************************************************/
@@ -266,10 +265,22 @@ int move(int *board, int pNum, int w, int h, int pCol) {
 /*  */
 /*  */
 /********************************************************************/
-int saveGame(char* fileName, int* board){
-    char* pBuffer;
+int saveGame(char* fileName, int* board, int w, int h, int size){
+    FILE* savedGame = fopen(fileName, "w");
 
-    write_file(fileName, );
+    if(!savedGame) {
+        printf("Write Error!");
+    }
+    else {
+        fprintf(savedGame, "%d\n", w);
+        fprintf(savedGame, "%d\n", h);
+        fprintf(savedGame, "%d\n", size);
+        for(int i = 0; i < size; i++){
+            fprintf(savedGame, "%d", board[i]);
+        }
+        fprintf(savedGame, "\n");
+        fclose(savedGame);
+    }
     return 0;
 }
 

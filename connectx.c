@@ -15,7 +15,7 @@
 /********************************************************************/
 
 
-
+#include <string.h>
 #include "handler.h"
 #include "game.h"
 
@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
         int pCol = -1;
         char input[30];
         printBoard(board, bWidth, bHeight);
-        while(pCol < 0) {
+        while(pCol == -1) {
 
             printf("Player %i, select a column (1-%i): ", pNum, bWidth);
 
@@ -73,6 +73,9 @@ int main(int argc, char** argv) {
             if(strcmp("s", input) == 0 || strcmp("-s", input) == 0){
                 printf("Please enter a filename: ");
                 scanf("%s", input);
+                if(saveGame(input, board, bWidth, bHeight, size) == 0){
+                    printf("Game Saved");
+                }
             }
 
             if(strcmp("l", input) == 0 || strcmp("-l", input) == 0){
@@ -92,6 +95,7 @@ int main(int argc, char** argv) {
                 pCol = -1;
             }
         }
+        
         // stores value of the index the player played at
         index = move(board, pNum, bWidth, bHeight, pCol);
 

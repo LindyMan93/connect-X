@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
 
 void printBoard(int *board, int w, int h);
 int turnCount(int* pNum);
