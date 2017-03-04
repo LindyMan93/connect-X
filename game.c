@@ -46,6 +46,8 @@ int gameState(int *board, int pNum, int index, int w, int h,
         // isComplete TRUE
         isComplete = 1;
     }
+    if (boardNotFull(board, w, h, size) == 0)
+        isComplete = 2;
 
     return isComplete;
 }
@@ -88,7 +90,7 @@ int checkRow(int *board, int pNum, int index, int w,
             break;
         }
     }
-    printf("Check Row Count: %i\n", count);
+    //printf("Check Row Count: %i\n", count);
     return count;
 }
 
@@ -100,7 +102,7 @@ int checkRow(int *board, int pNum, int index, int w,
 int checkCol(int *board, int pNum, int index, int w, int h, 
              int size) {
     int count = 0;
-    printf("CHECK COL FROM INDEX %i: \n\n", index);
+    //printf("CHECK COL FROM INDEX %i: \n\n", index);
     // look "down"
     // iterates "down" col of index
     // break when board[index] != pNum
@@ -114,7 +116,7 @@ int checkCol(int *board, int pNum, int index, int w, int h,
             break;
         }
     }
-    printf("Check Col Count: %i\n", count);
+    //printf("Check Col Count: %i\n", count);
     return count;
 }
 
@@ -156,7 +158,7 @@ int checkDiag1(int *board, int pNum, int index, int w, int h,
             break;
         }
     }
-    printf("Check Diag 1 Count: %i\n", count);
+    //printf("Check Diag 1 Count: %i\n", count);
     return count;
 }
 
@@ -199,7 +201,7 @@ int checkDiag2(int *board, int pNum, int index, int w, int h,
             break;
         }
     }
-    printf("Check Diag 2 Count: %i\n", count);
+    //printf("Check Diag 2 Count: %i\n", count);
     return count;
 }
 /********************************************************************/
@@ -256,7 +258,7 @@ int move(int *board, int pNum, int w, int h, int pCol) {
             break;
         }
     }
-    printf("Played Index: %i\n\n", pIndex);
+    //printf("Played Index: %i\n\n", pIndex);
     return pIndex;
 }
 
@@ -275,7 +277,7 @@ int saveGame(char* fileName, int* board, int w, int h, int toWin){
         fprintf(fp, "%d\n", w);
         fprintf(fp, "%d\n", h);
         fprintf(fp, "%d\n", toWin);
-        for(int i = 0; i < size; i++){
+        for(int i = 0; i < w * h; i++){
             fprintf(fp, "%d", board[i]);
         }
         fprintf(fp, "\n");
@@ -291,36 +293,36 @@ int saveGame(char* fileName, int* board, int w, int h, int toWin){
 /********************************************************************/
 int loadGame(char* fileName, int** buffer){
     // attempt open file
-    FILE* fp = fopen(filename, "r");
+    // FILE* fp = fopen(filename, "r");
 
-    // exception: file not open
-    if(fp == NULL) {
-        // instructor supplied next line
-        fprintf(stderr, "Could not open the file: %s\nExiting. . . ", filename);
+    // // exception: file not open
+    // if(fp == NULL) {
+    //     // instructor supplied next line
+    //     fprintf(stderr, "Could not open the file: %s\nExiting. . . ", filename);
 
-        exit(EXIT_FAILURE);
-    }
+    //     exit(EXIT_FAILURE);
+    // }
 
-    struct stat st;
-    stat(fp, &st);
-    int size = st.st_size;
+    // struct stat st;
+    // stat(fp, &st);
+    // int size = st.st_size;
 
-    // position
-    int cursor;
+    // // position
+    // int cursor;
 
-    // allocate buffer size equal to size of file
-    *board = malloc(size * sizeof(int));
+    // // allocate buffer size equal to size of file
+    // *board = malloc(size * sizeof(int));
 
-    // fgetc found at https://www.tutorialspoint.com/cprogramming/c_file_io.htm
-    for(int i = 0; i < size; i++) {
-        cursor = fgetc(readFile);
-        // debug:
-        // printf("cursor: %c", cursor);
-        (*buffer)[i] = cursor;
-        // debug:
-        // printf("(*buffer)[i]: %c", (*buffer)[i]);
-    }
-    fclose(readFile);
+    // // fgetc found at https://www.tutorialspoint.com/cprogramming/c_file_io.htm
+    // for(int i = 0; i < size; i++) {
+    //     cursor = fgetc(readFile);
+    //     // debug:
+    //     // printf("cursor: %c", cursor);
+    //     (*buffer)[i] = cursor;
+    //     // debug:
+    //     // printf("(*buffer)[i]: %c", (*buffer)[i]);
+    // }
+    // fclose(readFile);
 
-    return size;
+     return 0;
 }

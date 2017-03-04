@@ -74,10 +74,9 @@ int main(int argc, char** argv) {
                 printf("Please enter a filename: ");
                 scanf("%s", input);
                 if(saveGame(input, board, bWidth, bHeight, toWin) == 0){
-                    printf("Game Saved");
+                    printf("Game Saved\n\n");
                 }
             }
-
             if(strcmp("l", input) == 0 || strcmp("-l", input) == 0){
                 printf("Functionality not yet implemented.\n\n");
 
@@ -85,7 +84,6 @@ int main(int argc, char** argv) {
 //                scanf("%s", input);
 
             }
-
             pCol = atoi(input);
             if (pCol <= 0){
                 printf("Invalid column choice. Try again.");
@@ -94,7 +92,7 @@ int main(int argc, char** argv) {
             if (pCol > bWidth){
                 printf("Invalid column choice. Column choice"
                     " made by index.");
-                pCol = pCol % bWidth;
+                pCol = (pCol-1) % bWidth;
                 break;
             }
 
@@ -110,11 +108,14 @@ int main(int argc, char** argv) {
         isComplete = gameState(board, pNum, index, bWidth,
                                 bHeight, size, toWin);
         // End Game prompt
-        if(isComplete == 1){
+        if(isComplete != 0){
             printf("************************************\n");
-            printf("*  Congrats Player %i, you've won!  *\n", pNum);
+            if(isComplete == 1)
+                printf("*  Congrats Player %i, you've won!  *\n", pNum);
+            if(isComplete == 2)
+                printf("*        Draw! Board is full       *\n");
             printf("************************************\n\n\n");
-
+            printBoard(board, bWidth, bHeight);
             char playAgain[30];
             while(isComplete == 1){
                 printf("Play again (y/n)? ");
@@ -124,8 +125,13 @@ int main(int argc, char** argv) {
                     pNum = 2;
                     createBoard(&board, bWidth, bHeight);
                 }
+                if(strcmp("n", playAgain) == 0 || strcmp("no", playAgain) == 0){
+                    printf("Exiting!\n\n");
+                    exit(0);
+                }
             }
         }
+        
 
         // player's turn over
         pNum = pNum == 1 ? 2 : 1;

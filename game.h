@@ -27,9 +27,10 @@ int checkDiag2(int *board, int pNum, int index,
                int w, int h, int size);
 int createBoard(int **board, int w, int h);
 int move(int *board, int pNum, int w, int h, int pCol);
+int boardNotFull(int* board, int w, int h, int size);
 void printBoard(int *board, int w, int h);
 int saveGame(char* fileName, int* board, int w, int h,int size);
-int loadGame(char* fileName);
+int loadGame(char* fileName, int** buffer);
 
 
 #endif //CONNECTX_GAME_H
