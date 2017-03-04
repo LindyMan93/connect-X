@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
     bHeight = args.height;
     toWin = args.connect;
 
-    if((toWin > bWidth && toWin > bHeight) || bHeight < 2 || bWidth < 2){
+    if((toWin > bWidth && toWin > bHeight) || bHeight < 2 || bWidth < 2 || toWin < 2){
         printf("Invalid game settings detected.\n");
         printf("Reverting to default game type.\n");
         bHeight = 7;
