@@ -219,7 +219,7 @@ int createBoard(int **board, int w, int h) {
     }
 
     return size;
-}
+    }
 
 /********************************************************************/
 /*                    */
@@ -265,21 +265,21 @@ int move(int *board, int pNum, int w, int h, int pCol) {
 /*  */
 /*  */
 /********************************************************************/
-int saveGame(char* fileName, int* board, int w, int h, int size){
-    FILE* savedGame = fopen(fileName, "w");
+int saveGame(char* fileName, int* board, int w, int h, int toWin){
+    FILE* fp = fopen(fileName, "w");
 
-    if(!savedGame) {
+    if(!fp) {
         printf("Write Error!");
     }
     else {
-        fprintf(savedGame, "%d\n", w);
-        fprintf(savedGame, "%d\n", h);
-        fprintf(savedGame, "%d\n", size);
+        fprintf(fp, "%d\n", w);
+        fprintf(fp, "%d\n", h);
+        fprintf(fp, "%d\n", toWin);
         for(int i = 0; i < size; i++){
-            fprintf(savedGame, "%d", board[i]);
+            fprintf(fp, "%d", board[i]);
         }
-        fprintf(savedGame, "\n");
-        fclose(savedGame);
+        fprintf(fp, "\n");
+        fclose(fp);
     }
     return 0;
 }
@@ -289,7 +289,38 @@ int saveGame(char* fileName, int* board, int w, int h, int size){
 /*  */
 /*  */
 /********************************************************************/
-int loadGame(char* fileName){
+int loadGame(char* fileName, int** buffer){
+    // attempt open file
+    FILE* fp = fopen(filename, "r");
 
-    return 0;
+    // exception: file not open
+    if(fp == NULL) {
+        // instructor supplied next line
+        fprintf(stderr, "Could not open the file: %s\nExiting. . . ", filename);
+
+        exit(EXIT_FAILURE);
+    }
+
+    struct stat st;
+    stat(fp, &st);
+    int size = st.st_size;
+
+    // position
+    int cursor;
+
+    // allocate buffer size equal to size of file
+    *board = malloc(size * sizeof(int));
+
+    // fgetc found at https://www.tutorialspoint.com/cprogramming/c_file_io.htm
+    for(int i = 0; i < size; i++) {
+        cursor = fgetc(readFile);
+        // debug:
+        // printf("cursor: %c", cursor);
+        (*buffer)[i] = cursor;
+        // debug:
+        // printf("(*buffer)[i]: %c", (*buffer)[i]);
+    }
+    fclose(readFile);
+
+    return size;
 }

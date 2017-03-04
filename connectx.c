@@ -73,27 +73,31 @@ int main(int argc, char** argv) {
             if(strcmp("s", input) == 0 || strcmp("-s", input) == 0){
                 printf("Please enter a filename: ");
                 scanf("%s", input);
-                if(saveGame(input, board, bWidth, bHeight, size) == 0){
+                if(saveGame(input, board, bWidth, bHeight, toWin) == 0){
                     printf("Game Saved");
                 }
             }
 
             if(strcmp("l", input) == 0 || strcmp("-l", input) == 0){
-                printf("Please enter a filename: ");
-                scanf("%s", input);
+                printf("Functionality not yet implemented.\n\n");
+
+//                printf("Please enter a filename: ");
+//                scanf("%s", input);
+
             }
 
             pCol = atoi(input);
+            if (pCol <= 0){
+                printf("Invalid column choice. Try again.");
+                pCol = -1;
+            }
             if (pCol > bWidth){
                 printf("Invalid column choice. Column choice"
                     " made by index.");
                 pCol = pCol % bWidth;
                 break;
             }
-            if (pCol < 0){
-                printf("Invalid column choice. Try again.");
-                pCol = -1;
-            }
+
         }
         
         // stores value of the index the player played at
